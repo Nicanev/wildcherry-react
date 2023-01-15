@@ -1,5 +1,6 @@
 .header {
 	font-size: 1.8rem;
+	position: relative;
 	&__logo {
 		width: 13.3rem;
 		height: 2.7rem;
@@ -79,4 +80,18 @@
 			}
 		}
 	}
+}
+
+.example-enter {
+	height: 0px;
+}
+
+.example-enter.example-enter-active {
+	height: 100px;
+	-webkit-transition: height 0.3s ease;
+}
+
+.example-exit.example-exit-active {
+	height: 0px;
+	-webkit-transition: height 0.3s ease;
 }
