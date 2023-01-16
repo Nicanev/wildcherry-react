@@ -7,6 +7,20 @@
 	&__container {
 		padding: 2rem 0;
 		display: flex;
-		height: 100px;
+	}
+	&__categories {
+		li {
+			font-size: 1.4rem;
+			color: #242734;
+			font-weight: bold;
+			padding: 1rem 4rem 1rem 2rem;
+			cursor: pointer;
+		}
+		li:hover {
+			color: #de3162;
+			background-color: #fff;
+			border-radius: 0.4rem;
+			transition: all 0.2s;
+		}
 	}
 }

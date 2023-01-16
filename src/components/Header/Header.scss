@@ -81,17 +81,16 @@
 		}
 	}
 }
-
-.example-enter {
-	height: 0px;
-}
-
-.example-enter.example-enter-active {
-	height: 100px;
-	-webkit-transition: height 0.3s ease;
-}
-
-.example-exit.example-exit-active {
-	height: 0px;
-	-webkit-transition: height 0.3s ease;
+.catalog {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	padding: 1.5rem 2.5rem;
+	background-color: #de3162;
+	color: white;
+	border-radius: 0.9rem;
+	svg {
+		width: 2rem;
+		height: 2rem;
+	}
 }

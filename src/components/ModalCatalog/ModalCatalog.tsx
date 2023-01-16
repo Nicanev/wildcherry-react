@@ -1,20 +1,26 @@
 import React from "react";
 import "./ModalCatalog.scss";
 
-interface ModalCatalogProps {
-	isOpen: boolean;
-}
-
-export const ModalCatalog = ({ isOpen }: ModalCatalogProps) => {
+export const ModalCatalog = () => {
 	return (
-		<React.Fragment>
-			{isOpen && (
-				<div className="modalCatalog">
-					<div className="modalCatalog__container">
-						<h1>ТЕСТЫ</h1>
-					</div>
+		<>
+			<div className="modalCatalog">
+				<div className="modalCatalog__container">
+					<ul className="modalCatalog__categories">
+						<li>Электроника</li>
+						<li>Одежда</li>
+						<li>Обувь</li>
+						<li>Мебель</li>
+					</ul>
+					<ul className="modalCatalog__electronic">
+						<li>Телефоны и смарт-часы</li>
+						<li>Смартфоны</li>
+						<li>Смарт-часы</li>
+						<li>Ассексуары</li>
+						<li>Фитнес браслеты</li>
+					</ul>
 				</div>
-			)}
-		</React.Fragment>
+			</div>
+		</>
 	);
 };

@@ -6,14 +6,14 @@ import { ReactComponent as Delivery } from "../../assets/icons/Delivery.svg";
 import { ReactComponent as Like } from "../../assets/icons/Like.svg";
 import { ReactComponent as Cart } from "../../assets/icons/Cart.svg";
 import { ReactComponent as User } from "../../assets/icons/User.svg";
-import { CatalogButton } from "../UI/CatalogButton";
 import { ModalCatalog } from "../ModalCatalog/ModalCatalog";
-import { CSSTransition } from "react-transition-group";
+import { ReactComponent as Catalog } from "../../assets/icons/Catalog.svg";
+import { ReactComponent as Close } from "../../assets/icons/Close.svg";
 
 export const Header = () => {
-	let [ModalStatus, setModalStatus] = useState(false);
+	let [modal, setModal] = useState(false);
 	const toggleModal = () => {
-		setModalStatus((ModalStatus = !ModalStatus));
+		setModal((modal = !modal));
 	};
 	return (
 		<header className="header">
@@ -26,11 +26,10 @@ export const Header = () => {
 			<div className="header__downmenu">
 				<div className="header__container">
 					<Logo className="header__logo" />
-					<CatalogButton
-						toggle={toggleModal}
-						isOpen={ModalStatus}
-						text={"Каталог"}
-					/>
+					<button onClick={toggleModal} className="catalog">
+						{modal ? <Close /> : <Catalog />}
+						<span>Каталог</span>
+					</button>
 					<div className="header__search">
 						<input type="text" />
 						<button>
@@ -57,9 +56,7 @@ export const Header = () => {
 					</div>
 				</div>
 			</div>
-			<CSSTransition in={ModalStatus} timeout={400} classNames="example">
-				<ModalCatalog isOpen={ModalStatus} />
-			</CSSTransition>
+			{modal && <ModalCatalog />}
 		</header>
 	);
 };
