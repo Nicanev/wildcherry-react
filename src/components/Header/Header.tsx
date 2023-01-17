@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./Header.scss";
 import { ReactComponent as Logo } from "../../assets/icons/Logo.svg";
 import { ReactComponent as Loop } from "../../assets/icons/Loop.svg";
@@ -9,12 +9,9 @@ import { ReactComponent as User } from "../../assets/icons/User.svg";
 import { ModalCatalog } from "../ModalCatalog/ModalCatalog";
 import { ReactComponent as Catalog } from "../../assets/icons/Catalog.svg";
 import { ReactComponent as Close } from "../../assets/icons/Close.svg";
+import { ModalContext } from "../../Context/ModalContext";
 
 export const Header = () => {
-	let [modal, setModal] = useState(false);
-	const toggleModal = () => {
-		setModal((modal = !modal));
-	};
 	return (
 		<header className="header">
 			<div className="header__upmenu">
@@ -26,10 +23,7 @@ export const Header = () => {
 			<div className="header__downmenu">
 				<div className="header__container">
 					<Logo className="header__logo" />
-					<button onClick={toggleModal} className="catalog">
-						{modal ? <Close /> : <Catalog />}
-						<span>Каталог</span>
-					</button>
+					<CatalogButton />
 					<div className="header__search">
 						<input type="text" />
 						<button>
@@ -56,7 +50,20 @@ export const Header = () => {
 					</div>
 				</div>
 			</div>
-			{modal && <ModalCatalog />}
+			<ModalCatalog />
 		</header>
 	);
 };
+
+function CatalogButton() {
+	const { modal, toggle } = useContext(ModalContext);
+	const toggleModal = () => {
+		toggle();
+	};
+	return (
+		<button onClick={toggleModal} className="catalog">
+			{modal ? <Close /> : <Catalog />}
+			<span>Каталог</span>
+		</button>
+	);
+}
