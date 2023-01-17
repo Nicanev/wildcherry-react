@@ -12,7 +12,7 @@ export const ModalCatalog = () => {
 						<li>Обувь</li>
 						<li>Мебель</li>
 					</ul>
-					<ul className="modalCatalog__electronic">
+					<ul className="modalCatalog__subcategories">
 						<li>Телефоны и смарт-часы</li>
 						<li>Смартфоны</li>
 						<li>Смарт-часы</li>

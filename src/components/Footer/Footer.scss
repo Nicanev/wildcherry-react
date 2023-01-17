@@ -1,0 +1,43 @@
+.footer {
+	margin-top: 5rem;
+	border-top: 0.1rem solid #e4e4e7;
+	padding: 2.5rem 0;
+	font-size: 1.4rem;
+	color: #7e838c;
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	&__menu {
+		display: flex;
+		gap: 1rem;
+		li {
+			cursor: pointer;
+		}
+		li:hover {
+			color: black;
+			transition: 0.2s;
+		}
+	}
+	&__social {
+		svg {
+			width: 2.5rem;
+			height: 2.5rem;
+			cursor: pointer;
+		}
+		svg:hover {
+			path {
+				fill: black;
+				transition: 0.2s;
+			}
+		}
+		rect {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+}

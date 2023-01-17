@@ -79,6 +79,16 @@
 				height: 2.5rem;
 			}
 		}
+		button:hover {
+			span {
+				color: #de3162;
+				transition: 0.2s;
+			}
+			path {
+				fill: #de3162;
+				transition: 0.2s;
+			}
+		}
 	}
 }
 .catalog {

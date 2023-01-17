@@ -1,0 +1,76 @@
+.products {
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin: 0 auto;
+	}
+}
+
+.star-full {
+	path {
+		fill: #de3163;
+		stroke: #de3163;
+	}
+}
+
+.card {
+	width: 29rem;
+	height: 55.7rem;
+	padding: 2rem 2rem 0 2rem;
+	&__title {
+		margin-top: 0.5rem;
+		font-size: 1.4rem;
+		color: #242734;
+		cursor: pointer;
+	}
+	button {
+		margin-top: 1.5rem;
+		font-size: 1.6rem;
+		padding: 1rem 2.2rem;
+		border-radius: 0.9rem;
+		font-weight: bold;
+		color: white;
+		background-color: #de3163;
+	}
+	&__rating-stars {
+		display: flex;
+		svg {
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+	}
+	&__img {
+		img {
+			width: 25.2rem;
+			height: 33.6rem;
+			object-fit: cover;
+		}
+	}
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		span {
+			font-size: 1.4rem;
+			color: #999999;
+		}
+	}
+	&__price {
+		display: flex;
+		gap: 0.8rem;
+		align-items: center;
+	}
+	&__current-price {
+		font-weight: bold;
+		font-size: 1.8rem;
+		color: #242424;
+	}
+	&__old-price {
+		font-size: 1.4rem;
+		color: #8b8b8b;
+		text-decoration: line-through;
+		font-weight: bold;
+	}
+}

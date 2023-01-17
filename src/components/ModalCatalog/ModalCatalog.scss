@@ -7,6 +7,7 @@
 	&__container {
 		padding: 2rem 0;
 		display: flex;
+		gap: 2rem;
 	}
 	&__categories {
 		li {
@@ -21,6 +22,21 @@
 			background-color: #fff;
 			border-radius: 0.4rem;
 			transition: all 0.2s;
+		}
+	}
+	&__subcategories {
+		li:first-child {
+			font-weight: bold;
+			color: #242734;
+		}
+		li:hover {
+			color: #de3162;
+			transition: all 0.2s;
+		}
+		li {
+			font-size: 1.4rem;
+			margin-top: 1rem;
+			cursor: pointer;
 		}
 	}
 }
