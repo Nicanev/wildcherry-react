@@ -2,11 +2,13 @@ import React from "react";
 import "./App.scss";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./router";
+import { Route, Routes } from "react-router-dom";
 import { ModalState } from "./Context/ModalContext";
+import { MainPage } from "./pages/MainPage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
 
-const currentPage = router;
+// const currentPage = router;
 
 function App() {
 	return (
@@ -14,7 +16,11 @@ function App() {
 			<ModalState>
 				<Header />
 			</ModalState>
-			<RouterProvider router={currentPage} />
+			<Routes>
+				<Route path="/" element={<MainPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/register" element={<RegisterPage />} />
+			</Routes>
 			<Footer />
 		</div>
 	);
