@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
+import "./Form.scss";
+import CSS from "csstype";
+import { useAuth } from "../../hooks/use-auth";
+import { Navigate } from "react-router-dom";
 
 interface FormProps {
 	title: string;
 	handleClick: (email: string, password: string) => void;
 }
+
+const inputErrorStyle: CSS.Properties = {
+	border: "0.1rem solid red",
+	WebkitTransition: "0.2s all",
+	msTransition: "0.2s all",
+};
 
 export function Form({ title, handleClick }: FormProps) {
 	const [email, setEmail] = useState("");
@@ -64,30 +74,41 @@ export function Form({ title, handleClick }: FormProps) {
 	const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 	};
-	return (
-		<form onSubmit={handleSubmit}>
-			{emailDirty && emailError && (
-				<div className="form__error">{emailError}</div>
-			)}
-			<input
-				name="email"
-				type="email"
-				value={email}
-				onBlur={(e) => blurHandler(e)}
-				onChange={(e) => emailHandler(e)}
-				placeholder="Почта"
-			/>
-			{passwordDirty && passwordError && (
-				<div className="form__error">{passwordError}</div>
-			)}
-			<input
-				name="password"
-				type="password"
-				value={password}
-				onBlur={(e) => blurHandler(e)}
-				onChange={(e) => passwordHandler(e)}
-				placeholder="Пароль"
-			/>
+	const { isAuth } = useAuth();
+	return !isAuth ? (
+		<form className="form" onSubmit={handleSubmit}>
+			<div className="form__field">
+				<label htmlFor="email">Почта:</label>
+				<input
+					name="email"
+					type="email"
+					style={emailError && emailDirty ? inputErrorStyle : {}}
+					value={email}
+					onBlur={(e) => blurHandler(e)}
+					onChange={(e) => emailHandler(e)}
+					placeholder="Почта"
+				/>
+				{emailDirty && emailError && (
+					<div className="form__error">{emailError}</div>
+				)}
+			</div>
+
+			<div className="form__field">
+				<label htmlFor="password">Пароль:</label>
+				<input
+					name="password"
+					type="password"
+					style={passwordError && passwordDirty ? inputErrorStyle : {}}
+					value={password}
+					onBlur={(e) => blurHandler(e)}
+					onChange={(e) => passwordHandler(e)}
+					placeholder="Пароль"
+				/>
+				{passwordDirty && passwordError && (
+					<div className="form__error">{passwordError}</div>
+				)}
+			</div>
+
 			<button
 				disabled={!formValid}
 				onClick={() => handleClick(email, password)}
@@ -95,5 +116,7 @@ export function Form({ title, handleClick }: FormProps) {
 				{title}
 			</button>
 		</form>
+	) : (
+		<Navigate replace to="/profile" />
 	);
 }

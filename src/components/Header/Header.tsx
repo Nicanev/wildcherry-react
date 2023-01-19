@@ -10,6 +10,7 @@ import { ModalCatalog } from "../ModalCatalog/ModalCatalog";
 import { ReactComponent as Catalog } from "../../assets/icons/Catalog.svg";
 import { ReactComponent as Close } from "../../assets/icons/Close.svg";
 import { ModalContext } from "../../Context/ModalContext";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
 	return (
@@ -22,7 +23,9 @@ export const Header = () => {
 			</div>
 			<div className="header__downmenu">
 				<div className="header__container">
-					<Logo className="header__logo" />
+					<Link to="/">
+						<Logo className="header__logo" />
+					</Link>
 					<CatalogButton />
 					<div className="header__search">
 						<input type="text" />
@@ -43,10 +46,12 @@ export const Header = () => {
 							<Cart />
 							<span>Корзина</span>
 						</button>
-						<button>
-							<User />
-							<span>Профиль</span>
-						</button>
+						<Link to="/login">
+							<button>
+								<User />
+								<span>Профиль</span>
+							</button>
+						</Link>
 					</div>
 				</div>
 			</div>
