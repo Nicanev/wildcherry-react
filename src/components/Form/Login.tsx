@@ -1,29 +1,13 @@
 import { Form } from "./Form";
-import { setUser } from "../../store/slices/userSlice";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "./Form.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/redux-hooks";
 
 export function Login() {
-	const dispatch = useAppDispatch();
 	let navigate = useNavigate();
 	const handleLogin = (email: string, password: string) => {
 		const auth = getAuth();
-		signInWithEmailAndPassword(auth, email, password).then(({ user }) => {
-			user
-				.getIdToken()
-				.then(function (idToken) {
-					dispatch(
-						setUser({
-							email: user.email,
-							token: idToken,
-							id: user.uid,
-						})
-					);
-				})
-				.catch(function (error) {});
-		});
+		signInWithEmailAndPassword(auth, email, password);
 		navigate("/profile");
 	};
 

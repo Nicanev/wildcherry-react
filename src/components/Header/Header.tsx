@@ -11,6 +11,7 @@ import { ReactComponent as Catalog } from "../../assets/icons/Catalog.svg";
 import { ReactComponent as Close } from "../../assets/icons/Close.svg";
 import { ModalContext } from "../../Context/ModalContext";
 import { Link } from "react-router-dom";
+import { ReactComponent as Burger } from "../../assets/icons/burger.svg";
 
 export const Header = () => {
 	return (
@@ -23,6 +24,7 @@ export const Header = () => {
 			</div>
 			<div className="header__downmenu">
 				<div className="header__container">
+					<Burger className="header__burger" />
 					<Link to="/">
 						<Logo className="header__logo" />
 					</Link>
@@ -52,6 +54,12 @@ export const Header = () => {
 								<span>Профиль</span>
 							</button>
 						</Link>
+					</div>
+				</div>
+				<div className="header__container for-mobile">
+					<div className="header__search-mobile ">
+						<Loop />
+						<input type="text" placeholder="Поиск" />
 					</div>
 				</div>
 			</div>

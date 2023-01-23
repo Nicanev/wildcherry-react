@@ -1,30 +1,14 @@
 import { Form } from "./Form";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { setUser } from "../../store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import "./Form.scss";
-import { useAppDispatch } from "../../hooks/redux-hooks";
 
 export function SignUp() {
-	const dispatch = useAppDispatch();
 	let navigate = useNavigate();
 	const handleRegister = (email: string, password: string) => {
 		const auth = getAuth();
-		createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
-			user
-				.getIdToken()
-				.then(function (idToken) {
-					dispatch(
-						setUser({
-							email: user.email,
-							token: idToken,
-							id: user.uid,
-						})
-					);
-				})
-				.catch(function (error) {});
-		});
-		navigate("/login");
+		createUserWithEmailAndPassword(auth, email, password);
+		navigate("/profile");
 	};
 	return (
 		<>

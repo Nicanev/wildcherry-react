@@ -1,0 +1,39 @@
+.profile {
+	margin-top: 5rem;
+	&__title {
+		font-size: 3.2rem;
+		font-weight: bold;
+		margin-bottom: 4rem;
+	}
+	&__block {
+		padding: 2rem;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		margin-bottom: 2rem;
+		border-radius: 1rem;
+		h1 {
+			font-size: 2rem;
+			font-weight: bold;
+			margin-bottom: 1.5rem;
+		}
+	}
+	&__name {
+		margin-top: 0.5rem;
+		display: flex;
+		gap: 0.5rem;
+	}
+	&__content {
+		display: flex;
+		align-items: center;
+		gap: 2.2rem;
+		img {
+			border-radius: 50%;
+			width: 15rem;
+			height: 15rem;
+			background-color: rgba(128, 128, 128, 0.274);
+		}
+	}
+	&__email {
+		font-weight: 600;
+		font-size: 2.4rem;
+	}
+}

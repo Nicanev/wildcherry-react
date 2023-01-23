@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Form.scss";
 import CSS from "csstype";
-import { useAuth } from "../../hooks/use-auth";
 import { Navigate } from "react-router-dom";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
 interface FormProps {
 	title: string;
 	handleClick: (email: string, password: string) => void;
@@ -74,8 +74,9 @@ export function Form({ title, handleClick }: FormProps) {
 	const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 	};
-	const { isAuth } = useAuth();
-	return !isAuth ? (
+	const auth = getAuth();
+	const [user] = useAuthState(auth);
+	return !user ? (
 		<form className="form" onSubmit={handleSubmit}>
 			<div className="form__field">
 				<label htmlFor="email">Почта:</label>

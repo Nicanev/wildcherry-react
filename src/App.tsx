@@ -8,28 +8,10 @@ import { MainPage } from "./pages/MainPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { removeUser, setUser } from "./store/slices/userSlice";
-import { useAppDispatch } from "./hooks/redux-hooks";
 
 // const currentPage = router;
 
 function App() {
-	const dispatch = useAppDispatch();
-	const auth = getAuth();
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			dispatch(
-				setUser({
-					email: user.email,
-					id: user.uid,
-					token: user.refreshToken,
-				})
-			);
-		} else {
-			removeUser();
-		}
-	});
 	return (
 		<div className="wrapper">
 			<ModalState>
