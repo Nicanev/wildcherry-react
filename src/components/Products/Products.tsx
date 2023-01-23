@@ -1,17 +1,14 @@
-import ProductImg from "../../assets/img/products/Nothing_Phone_1.jpg";
 import "./Products.scss";
 import { ReactComponent as Star } from "../../assets/icons/Star.svg";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { app } from "../../firebase";
+import { Link } from "react-router-dom";
 
 export function Products() {
-	const [data, loading, error] = useCollection(
-		collection(getFirestore(app), "products"),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	);
+	const [data] = useCollection(collection(getFirestore(app), "products"), {
+		snapshotListenOptions: { includeMetadataChanges: true },
+	});
 	const products = data?.docs.map((doc) => ({
 		id: doc.id,
 		...doc.data(),
@@ -32,7 +29,9 @@ export function Products() {
 									</div>
 									<div className="card__old-price">{product.price} ₽</div>
 								</div>
-								<div className="card__title">{product.title}</div>
+								<Link to={`/product/${product.id}`}>
+									<div className="card__title">{product.title}</div>
+								</Link>
 								<div className="card__rating">
 									<div className="card__rating-stars">
 										<Star className="star-full" />
