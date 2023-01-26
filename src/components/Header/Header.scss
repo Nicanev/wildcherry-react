@@ -55,9 +55,9 @@
 		padding: 2rem 0;
 		.header__container {
 			display: grid;
-			grid-template-columns: repeat(4, max-content);
+			grid-template-columns: repeat(4, 1fr);
 			align-items: center;
-			gap: 3rem;
+			gap: 1.5rem;
 			@media (max-width: 48em) {
 				display: flex;
 				justify-content: space-between;
@@ -110,7 +110,7 @@
 	}
 	&__buttons {
 		display: flex;
-		gap: 3rem;
+		gap: 2rem;
 		span {
 			@media (max-width: 48em) {
 				display: none;
