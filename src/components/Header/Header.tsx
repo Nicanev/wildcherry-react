@@ -30,7 +30,7 @@ export const Header = () => {
 					</Link>
 					<CatalogButton />
 					<div className="header__search">
-						<input type="text" />
+						<input type="text" placeholder="Искать в WildCherry.." />
 						<button>
 							<Loop />
 						</button>

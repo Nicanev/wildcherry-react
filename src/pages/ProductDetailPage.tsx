@@ -2,11 +2,12 @@ import { doc, getFirestore } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useParams } from "react-router-dom";
 import { ProductDetail } from "../components/Product/ProductDetail";
+import { Loader } from "../components/UI/Loader/Loader";
 import { app } from "../firebase";
 
 export function ProductDetailPage() {
 	let { id } = useParams();
-	const [productDoc] = useDocument(
+	const [productDoc, loading] = useDocument(
 		doc(getFirestore(app), "products", String(id)),
 		{
 			snapshotListenOptions: { includeMetadataChanges: true },
@@ -25,10 +26,15 @@ export function ProductDetailPage() {
 	const category: any = categories?.data();
 
 	return (
-		<ProductDetail
-			productID={productID}
-			category={category}
-			product={product}
-		/>
+		<>
+			{loading && <Loader />}
+			{productDoc && (
+				<ProductDetail
+					productID={productID}
+					category={category}
+					product={product}
+				/>
+			)}
+		</>
 	);
 }

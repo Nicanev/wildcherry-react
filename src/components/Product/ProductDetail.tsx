@@ -1,7 +1,6 @@
 import "./Product.scss";
 import { ReactComponent as Like } from "../../assets/icons/Like.svg";
 import { Rating } from "../Reviews/Rating";
-import { useEffect } from "react";
 
 interface ProductProps {
 	product: any;
