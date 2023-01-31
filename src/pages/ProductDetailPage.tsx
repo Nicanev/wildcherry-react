@@ -15,7 +15,6 @@ export function ProductDetailPage() {
 	);
 
 	const product: any = productDoc?.data();
-	const productID: any = productDoc?.id;
 
 	const [categories] = useDocument(
 		doc(getFirestore(app), "categories", String(product?.category)),
@@ -29,11 +28,7 @@ export function ProductDetailPage() {
 		<>
 			{loading && <Loader />}
 			{productDoc && (
-				<ProductDetail
-					productID={productID}
-					category={category}
-					product={product}
-				/>
+				<ProductDetail productID={id} category={category} product={product} />
 			)}
 		</>
 	);

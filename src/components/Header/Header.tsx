@@ -12,6 +12,7 @@ import { ReactComponent as Close } from "../../assets/icons/Close.svg";
 import { ModalContext } from "../../Context/ModalContext";
 import { Link } from "react-router-dom";
 import { ReactComponent as Burger } from "../../assets/icons/burger.svg";
+import { Search } from "../Search/SearchInput";
 
 export const Header = () => {
 	return (
@@ -30,10 +31,7 @@ export const Header = () => {
 					</Link>
 					<CatalogButton />
 					<div className="header__search">
-						<input type="text" placeholder="Искать в WildCherry.." />
-						<button>
-							<Loop />
-						</button>
+						<Search />
 					</div>
 					<div className="header__buttons">
 						<button>

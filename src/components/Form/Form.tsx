@@ -4,6 +4,7 @@ import CSS from "csstype";
 import { Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
+import { Loader } from "../UI/Loader/Loader";
 interface FormProps {
 	title: string;
 	handleClick: (email: string, password: string) => void;
@@ -75,49 +76,54 @@ export function Form({ title, handleClick }: FormProps) {
 		e.preventDefault();
 	};
 	const auth = getAuth();
-	const [user] = useAuthState(auth);
-	return !user ? (
-		<form className="form" onSubmit={handleSubmit}>
-			<div className="form__field">
-				<label htmlFor="email">Почта:</label>
-				<input
-					name="email"
-					type="email"
-					style={emailError && emailDirty ? inputErrorStyle : {}}
-					value={email}
-					onBlur={(e) => blurHandler(e)}
-					onChange={(e) => emailHandler(e)}
-					placeholder="Почта"
-				/>
-				{emailDirty && emailError && (
-					<div className="form__error">{emailError}</div>
-				)}
-			</div>
+	const [user, loading] = useAuthState(auth);
+	return (
+		<>
+			{loading && <Loader />}
+			{!user ? (
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="form__field">
+						<label htmlFor="email">Почта:</label>
+						<input
+							name="email"
+							type="email"
+							style={emailError && emailDirty ? inputErrorStyle : {}}
+							value={email}
+							onBlur={(e) => blurHandler(e)}
+							onChange={(e) => emailHandler(e)}
+							placeholder="Почта"
+						/>
+						{emailDirty && emailError && (
+							<div className="form__error">{emailError}</div>
+						)}
+					</div>
 
-			<div className="form__field">
-				<label htmlFor="password">Пароль:</label>
-				<input
-					name="password"
-					type="password"
-					style={passwordError && passwordDirty ? inputErrorStyle : {}}
-					value={password}
-					onBlur={(e) => blurHandler(e)}
-					onChange={(e) => passwordHandler(e)}
-					placeholder="Пароль"
-				/>
-				{passwordDirty && passwordError && (
-					<div className="form__error">{passwordError}</div>
-				)}
-			</div>
+					<div className="form__field">
+						<label htmlFor="password">Пароль:</label>
+						<input
+							name="password"
+							type="password"
+							style={passwordError && passwordDirty ? inputErrorStyle : {}}
+							value={password}
+							onBlur={(e) => blurHandler(e)}
+							onChange={(e) => passwordHandler(e)}
+							placeholder="Пароль"
+						/>
+						{passwordDirty && passwordError && (
+							<div className="form__error">{passwordError}</div>
+						)}
+					</div>
 
-			<button
-				disabled={!formValid}
-				onClick={() => handleClick(email, password)}
-			>
-				{title}
-			</button>
-		</form>
-	) : (
-		<Navigate replace to="/profile" />
+					<button
+						disabled={!formValid}
+						onClick={() => handleClick(email, password)}
+					>
+						{title}
+					</button>
+				</form>
+			) : (
+				<Navigate replace to="/profile" />
+			)}
+		</>
 	);
 }

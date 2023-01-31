@@ -1,6 +1,7 @@
 import "./Product.scss";
 import { ReactComponent as Like } from "../../assets/icons/Like.svg";
 import { Rating } from "../Reviews/Rating";
+import { Reviews } from "../Reviews/Reviews";
 
 interface ProductProps {
 	product: any;
@@ -72,6 +73,7 @@ export function ProductDetail({ product, category, productID }: ProductProps) {
 						</div>
 					</div>
 				</div>
+				<Reviews />
 			</div>
 		</div>
 	);
