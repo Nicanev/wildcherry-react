@@ -8,6 +8,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
+import { ResultPage } from "./pages/ResultPage";
 
 // const currentPage = router;
 
@@ -24,6 +25,7 @@ function App() {
 					<Route path="/register" element={<RegisterPage />} />
 					<Route path="/profile" element={<ProfilePage />} />
 					<Route path="/product/:id" element={<ProductDetailPage />} />
+					<Route path="/search/:search" element={<ResultPage />} />
 				</Routes>
 			</main>
 			<Footer />

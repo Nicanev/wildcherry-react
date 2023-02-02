@@ -1,30 +1,14 @@
-import {
-	collection,
-	endAt,
-	getDocs,
-	orderBy,
-	query,
-	startAt,
-} from "firebase/firestore";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Loop } from "../../assets/icons/Loop.svg";
-import { db } from "../../firebase";
 
 export function Search() {
 	const [search, setSearch] = useState("");
-	const ref = collection(db, "products");
-
+	const navigate = useNavigate();
 	const searchHandler = async () => {
-		const q = query(
-			ref,
-			orderBy("lowerTitle"),
-			startAt(search.toLowerCase()),
-			endAt(search.toLowerCase() + "\uf8ff")
-		);
-		const querySnapshot = await getDocs(q);
-		querySnapshot.forEach((doc) => {
-			console.log(doc.id, " => ", doc.data());
-		});
+		if (search) {
+			navigate(`/search/${search}`);
+		}
 	};
 	return (
 		<>
