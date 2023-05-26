@@ -17,22 +17,27 @@ export function ProductsList({ products }: ProductsProps) {
 								<img src={product.image} alt="Product" />
 							</div>
 							<div className="card__body">
+								{/*<div className="card__price">*/}
+								{/*	<div className="card__current-price">*/}
+								{/*		{Math.round(*/}
+								{/*			(product.price / 100) * product.discount*/}
+								{/*		).toLocaleString()}{" "}*/}
+								{/*		₽*/}
+								{/*	</div>*/}
+								{/*	<div className="card__old-price">*/}
+								{/*		{product.price.toLocaleString()} ₽*/}
+								{/*	</div>*/}
+								{/*</div>*/}
 								<div className="card__price">
 									<div className="card__current-price">
-										{Math.round(
-											(product.price / 100) * product.discount
-										).toLocaleString()}{" "}
-										₽
-									</div>
-									<div className="card__old-price">
 										{product.price.toLocaleString()} ₽
 									</div>
 								</div>
 								<Link to={`/product/${product.id}`}>
-									<div className="card__title">{product.title}</div>
+									<div className="card__title">{product.name}</div>
 								</Link>
 								<div className="card__rating">
-									<Rating productID={product.id} />
+									<Rating score={product.score} count_score={product.count_score} />
 								</div>
 								<button className="card__btn">В корзину</button>
 							</div>

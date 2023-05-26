@@ -1,15 +1,29 @@
 import { Form } from "./Form";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import "./Form.scss";
+import axios from "axios";
+import config from "../../config";
 
 export function SignUp() {
 	let navigate = useNavigate();
 	const handleRegister = (email: string, password: string) => {
-		const auth = getAuth();
-		createUserWithEmailAndPassword(auth, email, password);
-		navigate("/profile");
+		axios.post(`${config.apiUrl}/auth/registration/user`, {
+            email: email,
+            password: password
+        }).then((response) => {
+            const token = response.data.accessToken
+            const refreshToken = response.data.refreshToken
+            console.log(response.data);
+            localStorage.setItem('token', token);
+            localStorage.setItem('refreshToken', refreshToken);
+            navigate("/profile");
+        }).catch((error) => {
+            console.log(error.error)
+        })
 	};
+
+
+
 	return (
 		<>
 			<h1 className="form__title">Регистрация</h1>

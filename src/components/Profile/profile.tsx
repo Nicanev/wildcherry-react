@@ -1,47 +1,133 @@
 import profileImg from "../../assets/img/profile/user.png";
-import { getAuth, signOut } from "firebase/auth";
 import "./Profile.scss";
-import { useIdToken } from "react-firebase-hooks/auth";
-import { collection, query, where } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "../../firebase";
+import config from "../../config";
+import parseJwt from "../../jwtUtils";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {useNavigate,} from "react-router-dom";
+import refreshToken from "../../tokenUtils";
+
 
 export function Profile() {
-	const auth = getAuth();
-	const [user] = useIdToken(auth);
-	const exitHandler = () => {
-		signOut(auth);
-	};
-	const userRef = collection(db, "users");
-	const [data] = useCollection(
-		query(userRef, where("user_id", "==", user?.uid))
-	);
-	let userInfo: any;
-	data?.forEach((doc) => {
-		userInfo = doc.data();
-	});
+    let navigate = useNavigate();
 
-	return (
-		<div className="profile">
-			<div className="profile__container">
-				<h1 className="profile__title">Профиль</h1>
-				<div className="profile__content profile__block">
-					<img src={profileImg} alt="" />
-					<div className="profile__info">
-						<div className="profile__email">{user?.email}</div>
-						{userInfo && (
-							<div className="profile__name">
-								<div>{userInfo.first_name}</div>
-								<div>{userInfo.last_name}</div>
-							</div>
-						)}
-					</div>
-				</div>
-				<div className="profile__exit profile__block">
-					<h1>Выйти из профиля</h1>
-					<button onClick={exitHandler}>Выход</button>
-				</div>
-			</div>
-		</div>
-	);
+    const exitHandler = () => {
+        const token = localStorage.getItem('token');
+        const decodedToken = parseJwt(token);
+        axios.get(`${config.apiUrl}/auth/logout/${decodedToken.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                localStorage.clear();
+                navigate("/");
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    };
+    const [user, setUser] = useState<any>(null);
+    const [userInfo, setUserInfo] = useState<any>(null);
+
+    useEffect(() => {
+        refreshToken();
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decodedToken = parseJwt(token);
+            setUser(decodedToken);
+
+            axios.get(`${config.apiUrl}/profile/${decodedToken.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((response) => {
+                    setUserInfo(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+    }, []);
+
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [phone, setPhone] = useState('');
+
+    useEffect(() => {
+        if (userInfo) {
+            setName(userInfo.name || '');
+            setSurname(userInfo.surname || '');
+            setPhone(userInfo.phone || '');
+        }
+    }, [userInfo]);
+
+    const updateProfileHandler = () => {
+        const token = localStorage.getItem('token');
+        const updatedData = {
+            name: name,
+            surname: surname,
+            phone: phone,
+        };
+
+        axios
+            .put(`${config.apiUrl}/profile/${user.id}`, updatedData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log('Профиль успешно обновлен!');
+                // Дополнительные действия по обновлению интерфейса или перенаправлению пользователя
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    };
+
+
+    return (
+        <div className="profile">
+            <div className="profile__container">
+                <h1 className="profile__title">Профиль</h1>
+                <div className="profile__content profile__block">
+                    <img src={profileImg} alt=""/>
+                    <div className="profile__info">
+                        {user && (
+                            <div className="profile__email">{user.email}</div>
+                        )}
+                    </div>
+                </div>
+                <div className="profile__data profile__block">
+                    <h1>Ваши данные:</h1>
+                    <div className="profile__inputs">
+                        <input
+                            type="text"
+                            placeholder="Ваше имя"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Ваша фамилия"
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)}
+                        />
+                        <input
+                            type="tel"
+                            placeholder="Ваш телефон"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        <button onClick={updateProfileHandler}>Обновить</button>
+                    </div>
+                </div>
+                <div className="profile__exit profile__block">
+                    <h1>Выйти из профиля</h1>
+                    <button onClick={exitHandler}>Выход</button>
+                </div>
+            </div>
+        </div>
+    );
 }

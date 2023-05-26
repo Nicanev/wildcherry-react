@@ -9,6 +9,8 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { ResultPage } from "./pages/ResultPage";
+import {DeliveryPage} from "./pages/DeliveryPage";
+
 
 // const currentPage = router;
 
@@ -26,6 +28,7 @@ function App() {
 					<Route path="/profile" element={<ProfilePage />} />
 					<Route path="/product/:id" element={<ProductDetailPage />} />
 					<Route path="/search/:search" element={<ResultPage />} />
+					<Route path="/delivery" element={<DeliveryPage />} />
 				</Routes>
 			</main>
 			<Footer />

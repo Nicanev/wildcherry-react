@@ -1,34 +1,49 @@
-import { doc, getFirestore } from "firebase/firestore";
-import { useDocument } from "react-firebase-hooks/firestore";
+
 import { useParams } from "react-router-dom";
 import { ProductDetail } from "../components/Product/ProductDetail";
 import { Loader } from "../components/UI/Loader/Loader";
-import { app } from "../firebase";
+
+import {useEffect, useState} from "react";
+import axios from "axios";
+import config from "../config";
 
 export function ProductDetailPage() {
-	let { id } = useParams();
-	const [productDoc, loading] = useDocument(
-		doc(getFirestore(app), "products", String(id)),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	);
+	const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [productDoc, setProductDoc] = useState<any>(null);
+  const [productImg, setProductImg] = useState<any>(null);
 
-	const product: any = productDoc?.data();
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`${config.apiUrl}/product/${id}`);
+        setProductDoc(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    const fetchProductImages = async () => {
+      try {
+        const response = await axios.get(`${config.apiUrl}/product-img/product/${id}`);
+        setProductImg(response.data)
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    fetchProductImages();
+    fetchProductData();
+  }, [id]);
 
-	const [categories] = useDocument(
-		doc(getFirestore(app), "categories", String(product?.category)),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	);
-	const category: any = categories?.data();
 
 	return (
 		<>
 			{loading && <Loader />}
 			{productDoc && (
-				<ProductDetail productID={id} category={category} product={product} />
+				<ProductDetail productImages={productImg} product={productDoc} />
 			)}
 		</>
 	);

@@ -5,10 +5,12 @@
 	}
 	&__main {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 2rem;
 	}
 	&__description {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 5rem;
 		margin-top: 2rem;
 		h1 {
@@ -71,6 +73,7 @@
 	}
 	&__info {
 		display: flex;
+
 		width: 35rem;
 		justify-content: space-between;
 	}
