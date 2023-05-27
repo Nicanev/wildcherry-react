@@ -1,5 +1,5 @@
-import { BannerSection } from "../components/BannerSection/Banner";
-import { PromoSection } from "../components/PromoSection/PromoSection";
+import { BannerSection } from "../components/Sections/BannerSection/Banner";
+import { PromoSection } from "../components/Sections/PromoSection/PromoSection";
 
 export function MainPage() {
 	return (

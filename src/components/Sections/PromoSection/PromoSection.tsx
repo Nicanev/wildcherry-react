@@ -1,4 +1,4 @@
-import { Products } from "../Products/Products";
+import { Products } from "../../Products/Products";
 import "./PromoSection.scss";
 
 export function PromoSection() {

@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "./Banner.scss";
-import BannerImg from "../../assets/img/banners/banner1.jpg";
+import BannerImg from "../../../assets/img/banners/banner1.jpg";
 
 export function BannerSection() {
 	return (

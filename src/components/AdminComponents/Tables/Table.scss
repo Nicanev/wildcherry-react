@@ -1,0 +1,48 @@
+.admin-table {
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  &__addBtn {
+    margin: 2rem 0;
+    font-weight: 600;
+    padding: 1rem 1.5rem !important;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+  }
+  th {
+    color: white;
+    padding: 2rem 0;
+    background-color: #da2f58;
+  }
+  td {
+    padding: 2rem 0;
+    border-bottom: 0.1rem solid #ccc;
+
+  }
+  tbody {
+    tr {
+      &:hover {
+      background-color: rgba(128, 128, 128, 0.08);
+        transition: 0.2s;
+    }
+    }
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #da2f58;
+    border-radius: 0.4rem;
+    margin-right: 0.5rem;
+    &:hover {
+      background-color: #ec4b71;
+      transition: 0.2s;
+    }
+  }
+
+
+}

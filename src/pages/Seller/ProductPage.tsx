@@ -1,3 +1,3 @@
-export function AddProductPage() {
+export function SellerProductPage() {
     return <></>
 }

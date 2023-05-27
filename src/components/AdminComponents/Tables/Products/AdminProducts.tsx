@@ -1,46 +1,66 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import "../Table.scss"
+import axios from "axios";
+import config from "../../../../config";
 
 interface Product {
-  id: number;
-  name: string;
-  price: number;
+    id: number;
+    name: string;
+    price: number;
 }
 
 const AdminProducts: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([
-    { id: 1, name: 'Product 1', price: 10 },
-    { id: 2, name: 'Product 2', price: 20 },
-    // Добавьте другие продукты по вашему усмотрению
-  ]);
+    const [products, setProducts] = useState<Product[]>([]);
 
-  return (
-    <div className="admin-products">
-      <h2>Products</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
-              <td>
-                <button>Edit</button>
-                <button>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    const fetchProduct = async () => {
+        const token = localStorage.getItem('token')
+        try {
+            const response = await axios.get(`${config.apiUrl}/product`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }); // Замените '/api/users' на ваш конечный точку API для получения пользователей
+            setProducts(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Failed to fetch users:', error);
+        }
+    };
+
+
+    return (
+        <div className="admin-products admin-table">
+            <h2>Products</h2>
+            <button className="admin-table__addBtn">Добавить продукт</button>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {products.map((product) => (
+                    <tr key={product.id}>
+                        <td>{product.id}</td>
+                        <td>{product.name}</td>
+                        <td>{product.price}</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default AdminProducts;

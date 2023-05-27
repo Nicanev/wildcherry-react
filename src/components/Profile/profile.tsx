@@ -21,17 +21,19 @@ export function Profile() {
         })
             .then((response) => {
                 localStorage.clear();
-                navigate("/");
+                navigate("/login");
             })
             .catch((error) => {
                 console.log(error.message);
+                localStorage.clear();
+                navigate("/login");
             });
     };
     const [user, setUser] = useState<any>(null);
     const [userInfo, setUserInfo] = useState<any>(null);
 
     useEffect(() => {
-        refreshToken();
+
         const token = localStorage.getItem('token');
         if (token) {
             const decodedToken = parseJwt(token);
@@ -44,8 +46,10 @@ export function Profile() {
             })
                 .then((response) => {
                     setUserInfo(response.data);
+
                 })
                 .catch((error) => {
+                    refreshToken();
                     console.log(error.message);
                 });
         }

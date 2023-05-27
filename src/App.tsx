@@ -10,6 +10,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { ResultPage } from "./pages/ResultPage";
 import {DeliveryPage} from "./pages/DeliveryPage";
+import {AdminPage} from "./pages/Admin/AdminPage/AdminPage";
 
 
 // const currentPage = router;
@@ -29,6 +30,7 @@ function App() {
 					<Route path="/product/:id" element={<ProductDetailPage />} />
 					<Route path="/search/:search" element={<ResultPage />} />
 					<Route path="/delivery" element={<DeliveryPage />} />
+					<Route path="/admin/*" element={<AdminPage />} />
 				</Routes>
 			</main>
 			<Footer />

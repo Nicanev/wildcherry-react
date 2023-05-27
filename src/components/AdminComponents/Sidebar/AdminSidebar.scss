@@ -1,0 +1,19 @@
+.admin-sidebar {
+  //margin-right: 1rem;
+
+  &__nav {
+    li {
+      padding: 1.5rem 4rem;
+
+      a {
+        font-weight: 600;
+      }
+
+      &:hover {
+        background-color: #da2f58;
+        color: white;
+        transition: 0.2s;
+      }
+    }
+  }
+}

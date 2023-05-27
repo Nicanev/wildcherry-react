@@ -10,17 +10,22 @@ const refreshToken = () => {
     const decodedToken = parseJwt(token);
 
     axios
-      .post(`${config.apiUrl}/auth/refresh/${decodedToken.id}`, {}, {
+      .put(`${config.apiUrl}/auth/refresh/${decodedToken.id}`, {}, {
           headers: {
               refreshToken: refreshToken
           }
       })
       .then((response) => {
-        const { token: newToken } = response.data;
+        const newToken = response.data.accessToken;
+        const newRefreshToken = response.data.refreshToken;
+        localStorage.clear();
         localStorage.setItem('token', newToken);
+        localStorage.setItem('refreshToken', newRefreshToken);
+        console.log(newToken + " " + newRefreshToken)
       })
       .catch((error) => {
         console.log(error.message);
+        localStorage.clear()
       });
   }
 };
