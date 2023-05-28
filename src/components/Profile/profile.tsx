@@ -26,7 +26,7 @@ export function Profile() {
             .catch((error) => {
                 console.log(error.message);
                 localStorage.clear();
-                navigate("/login");
+                navigate("/");
             });
     };
     const [user, setUser] = useState<any>(null);
@@ -83,7 +83,6 @@ export function Profile() {
             })
             .then((response) => {
                 console.log('Профиль успешно обновлен!');
-                // Дополнительные действия по обновлению интерфейса или перенаправлению пользователя
             })
             .catch((error) => {
                 console.log(error.message);

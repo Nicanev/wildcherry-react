@@ -31,6 +31,21 @@ const AdminProducts: React.FC = () => {
         }
     };
 
+    const deleteProduct = async (productId: number) => {
+        const token = localStorage.getItem('token')
+        try {
+            await axios.delete(`${config.apiUrl}/product/${productId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setProducts((prevProducts) => prevProducts.filter((product) => product.id !==productId));
+        } catch (error) {
+            console.error('Failed to delete user:', error);
+
+        }
+    };
+
 
     return (
         <div className="admin-products admin-table">
@@ -53,7 +68,7 @@ const AdminProducts: React.FC = () => {
                         <td>{product.price}</td>
                         <td>
                             <button>Edit</button>
-                            <button>Delete</button>
+                            <button onClick={() => deleteProduct(product.id)}>Удалить</button>
                         </td>
                     </tr>
                 ))}
