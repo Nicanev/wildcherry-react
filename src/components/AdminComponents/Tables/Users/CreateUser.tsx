@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import config from "../../../../config";
-import "./AddEditForm.scss"
+import "../AddEditForm.scss"
 
 interface User {
     name: string;

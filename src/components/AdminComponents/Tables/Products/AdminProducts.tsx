@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "../Table.scss"
 import axios from "axios";
 import config from "../../../../config";
+import {Link} from "react-router-dom";
 
 interface Product {
     id: number;
@@ -23,7 +24,7 @@ const AdminProducts: React.FC = () => {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
-            }); // Замените '/api/users' на ваш конечный точку API для получения пользователей
+            });
             setProducts(response.data);
             console.log(response.data)
         } catch (error) {
@@ -39,7 +40,7 @@ const AdminProducts: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            setProducts((prevProducts) => prevProducts.filter((product) => product.id !==productId));
+            setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
         } catch (error) {
             console.error('Failed to delete user:', error);
 
@@ -50,7 +51,9 @@ const AdminProducts: React.FC = () => {
     return (
         <div className="admin-products admin-table">
             <h2>Products</h2>
-            <button className="admin-table__addBtn">Добавить продукт</button>
+            <Link to="/admin/product">
+                <button className="admin-table__addBtn">Добавить продукт</button>
+            </Link>
             <table>
                 <thead>
                 <tr>

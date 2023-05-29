@@ -44,10 +44,12 @@ export const Header = () => {
                             <Like/>
                             <span>Избранное</span>
                         </button>
-                        <button>
-                            <Cart/>
-                            <span>Корзина</span>
-                        </button>
+                        <Link to="/cart">
+                            <button>
+                                <Cart/>
+                                <span>Корзина</span>
+                            </button>
+                        </Link>
                         <Link to="/login">
                             <button>
                                 <User/>

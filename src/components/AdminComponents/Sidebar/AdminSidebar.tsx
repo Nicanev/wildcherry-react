@@ -22,7 +22,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = () => {
                     <a href="/admin/category">Категории</a>
                 </li>
                 <li>
-                    <a href="/subcategory">Подкатегории</a>
+                    <a href="/admin/subcategory">Подкатегории</a>
                 </li>
             </ul>
         </div>

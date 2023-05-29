@@ -8,6 +8,9 @@ import "./AdminPage.scss"
 import {useLocation} from "react-router-dom";
 import CreateUser from "../../../components/AdminComponents/Tables/Users/CreateUser";
 import EditUser from "../../../components/AdminComponents/Tables/Users/EditUser";
+import AdminCategory from "../../../components/AdminComponents/Tables/Category/AdminCategory";
+import AdminSubcategory from "../../../components/AdminComponents/Tables/Subcategory/AdminSubcategory";
+import CreateProduct from "../../../components/AdminComponents/Tables/Products/CreateProduct";
 
 export function AdminPage() {
 
@@ -21,8 +24,14 @@ export function AdminPage() {
             return <AdminUsers/>;
         } else if (location.pathname === '/admin/products') {
             return <AdminProducts/>;
+        } else if (location.pathname === '/admin/category') {
+            return <AdminCategory/>;
+        } else if (location.pathname === '/admin/subcategory') {
+            return <AdminSubcategory/>;
         } else if (location.pathname === '/admin/user') {
             return <CreateUser/>
+            } else if (location.pathname === '/admin/product') {
+            return <CreateProduct/>
         } else if (matchUserRoute) {
             const userId = Number(matchUserRoute[1]);
             return <EditUser userId={userId}/>;
