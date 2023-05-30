@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import config from "../../../../config";
 import "../AddEditForm.scss"
+import refreshToken from "../../../../tokenUtils";
 
 interface Product {
     name: string;
@@ -20,9 +21,17 @@ interface SubCategory {
     id: number;
     name: string;
 }
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    profile: any;
+    roles: any;
+}
 
 const CreateProduct: React.FC = () => {
     const [subCategory, setSubCategory] = useState<SubCategory[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [product, setProduct] = useState<Product>({
         name: '',
         sub_category: 1,
@@ -37,6 +46,7 @@ const CreateProduct: React.FC = () => {
     });
     useEffect(() => {
         fetchSubCategory();
+        fetchUsers()
     }, []);
     const fetchSubCategory = async () => {
         const token = localStorage.getItem('token')
@@ -47,9 +57,23 @@ const CreateProduct: React.FC = () => {
                 }
             });
             setSubCategory(response.data);
-            console.log(response.data)
         } catch (error) {
             console.error('Failed to fetch users:', error);
+        }
+    };
+
+    const fetchUsers = async () => {
+        const token = localStorage.getItem('token')
+        try {
+            const response = await axios.get(`${config.apiUrl}/user`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Failed to fetch users:', error);
+            refreshToken();
         }
     };
 
@@ -110,12 +134,6 @@ const CreateProduct: React.FC = () => {
                 </div>
                 <div className="form-item">
                     <label>Subcategory:</label>
-                    {/*<input*/}
-                    {/*    type="tel"*/}
-                    {/*    name="phone"*/}
-                    {/*    value={product.phone}*/}
-                    {/*    onChange={handleChange}*/}
-                    {/*/>*/}
                     <select name="subcategory" value={product.sub_category} onChange={handleChange}>
                         {subCategory.map((subcategory) => (
                             <option key={subcategory.id} value={subcategory.id}>{subcategory.name}</option>
@@ -125,7 +143,9 @@ const CreateProduct: React.FC = () => {
                 <div className="form-item">
                     <label>Продавец:</label>
                     <select name="owner" value={product.owner} onChange={handleChange}>
-                        <option value="11">1</option>
+                        {users.map((user) => (
+                            <option key={user.id} value={user.id}>{user.email} </option>
+                        ))}
                     </select>
                 </div>
                 <button type="submit">Создать</button>

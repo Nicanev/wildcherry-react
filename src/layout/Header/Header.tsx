@@ -6,13 +6,13 @@ import {ReactComponent as Delivery} from "../../assets/icons/Delivery.svg";
 import {ReactComponent as Like} from "../../assets/icons/Like.svg";
 import {ReactComponent as Cart} from "../../assets/icons/Cart.svg";
 import {ReactComponent as User} from "../../assets/icons/User.svg";
-import {ModalCatalog} from "../ModalCatalog/ModalCatalog";
+import {ModalCatalog} from "../../components/ModalCatalog/ModalCatalog";
 import {ReactComponent as Catalog} from "../../assets/icons/Catalog.svg";
 import {ReactComponent as Close} from "../../assets/icons/Close.svg";
 import {ModalContext} from "../../Context/ModalContext";
 import {Link} from "react-router-dom";
 import {ReactComponent as Burger} from "../../assets/icons/burger.svg";
-import {Search} from "../Search/SearchInput";
+import {Search} from "../../components/Search/SearchInput";
 
 export const Header = () => {
     return (
@@ -40,10 +40,12 @@ export const Header = () => {
                                 <span>Доставка</span>
                             </button>
                         </Link>
-                        <button>
-                            <Like/>
-                            <span>Избранное</span>
-                        </button>
+                        <Link to='/favourite'>
+                            <button>
+                                <Like/>
+                                <span>Избранное</span>
+                            </button>
+                        </Link>
                         <Link to="/cart">
                             <button>
                                 <Cart/>

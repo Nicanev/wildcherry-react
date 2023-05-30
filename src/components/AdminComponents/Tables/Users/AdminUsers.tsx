@@ -9,6 +9,8 @@ interface User {
     id: number;
     name: string;
     email: string;
+    profile: any;
+    roles: any;
 }
 
 const AdminUsers: React.FC = () => {
@@ -63,6 +65,7 @@ const AdminUsers: React.FC = () => {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Роль</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -70,8 +73,9 @@ const AdminUsers: React.FC = () => {
                 {users.map((user) => (
                     <tr key={user.id}>
                         <td>{user.id}</td>
-                        <td>{user.name}</td>
+                        <td>{user.profile.name}</td>
                         <td>{user.email}</td>
+                        <td>{user.roles[user.roles.length - 1].value}</td>
                         <td>
                             <Link to={"/admin/user/" + user.id}>
                                 <button>Изменить</button>

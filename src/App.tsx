@@ -1,6 +1,6 @@
 import "./App.scss";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
+import { Header } from "./layout/Header/Header";
+import { Footer } from "./layout/Footer/Footer";
 import { Route, Routes } from "react-router-dom";
 import { ModalState } from "./Context/ModalContext";
 import { MainPage } from "./pages/MainPage";
@@ -12,6 +12,8 @@ import { ResultPage } from "./pages/ResultPage";
 import {DeliveryPage} from "./pages/DeliveryPage";
 import {AdminPage} from "./pages/Admin/AdminPage/AdminPage";
 import {CartPage} from "./pages/CartPage";
+import {AdminAuthPage} from "./pages/Admin/AdminAuthPage";
+import {FavouritePage} from "./pages/FavouritePage";
 
 
 // const currentPage = router;
@@ -33,6 +35,8 @@ function App() {
 					<Route path="/cart" element={<CartPage />} />
 					<Route path="/delivery" element={<DeliveryPage />} />
 					<Route path="/admin/*" element={<AdminPage />} />
+					<Route path="/favourite" element={<FavouritePage />} />
+					<Route path="/admin-auth" element={<AdminAuthPage />} />
 				</Routes>
 			</main>
 			<Footer />

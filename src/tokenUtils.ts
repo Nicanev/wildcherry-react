@@ -21,7 +21,6 @@ const refreshToken = () => {
         localStorage.clear();
         localStorage.setItem('token', newToken);
         localStorage.setItem('refreshToken', newRefreshToken);
-        console.log(newToken + " " + newRefreshToken)
       })
       .catch((error) => {
         console.log(error.message);

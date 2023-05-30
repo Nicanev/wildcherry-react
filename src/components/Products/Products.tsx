@@ -13,18 +13,14 @@ export function Products() {
         axios
             .get(`${config.apiUrl}/product`)
             .then((response) => {
-                // Получаем список продуктов
                 const productList = response.data;
-
-                // Создаем новый список продуктов с добавленными изображениями
                 const productsWithImages = productList.map((product: any) => {
                     return {
                         ...product,
-                        image: '', // Создаем пустое поле для изображения
+                        image: '',
                     };
                 });
 
-                // Устанавливаем обновленный список продуктов
                 setProducts(productsWithImages);
                 console.log(response.data);
                 setLoading(false);
@@ -36,15 +32,11 @@ export function Products() {
     }, []);
 
     useEffect(() => {
-        // Загружаем изображения для каждого продукта
         products.forEach((product: any) => {
             axios
                 .get(`${config.apiUrl}/product-img/product/${product.id}`)
                 .then((response) => {
-                    // Получаем URL изображения
                     const imageUrl = response.data[0].url;
-
-                    // Обновляем поле изображения для продукта
                     setProducts((prevProducts: any) =>
                         prevProducts.map((prevProduct: any) => {
                             if (prevProduct.id === product.id) {
