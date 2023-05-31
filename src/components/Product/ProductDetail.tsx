@@ -1,13 +1,13 @@
 import "./Product.scss";
 // import {ReactComponent as Like} from "../../assets/icons/Like.svg";
 import {Rating} from "../Reviews/Rating";
-import {Reviews} from "../Reviews/Reviews";
 import ImageGallery from "../Gallery/ImageGallery";
 import axios from "axios";
 import config from "../../config";
 import parseJwt from "../../jwtUtils";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import Feedback from "../Reviews/Feedback";
 
 interface ProductProps {
     product: any;
@@ -25,44 +25,45 @@ export function ProductDetail({product, productImages}: ProductProps) {
     }, [])
 
     const toggleFavourite = async () => {
-    const token = localStorage.getItem('token');
-    const user = parseJwt(localStorage.getItem('token'))
-    try {
-        if (favourite.products && favourite.products.some((p: any) => p.id === product.id)) {
-            // Удалить продукт из избранного
-            await axios.delete(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login')
+        }
+        const user = parseJwt(localStorage.getItem('token'))
+        try {
+            if (favourite.products && favourite.products.some((p: any) => p.id === product.id)) {
+                await axios.delete(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setFavourite({...favourite, products: favourite.products.filter((p: any) => p.id !== product.id)});
+            } else {
+                await addFavourite();
+                fetchFavourite();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const addFavourite = async () => {
+        const token = localStorage.getItem('token');
+        const user = parseJwt(localStorage.getItem('token'))
+        try {
+            const response = await axios.put(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
+                user_id: user.id,
+                product_id: product.id,
+            }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setFavourite({...favourite, products: favourite.products.filter((p: any) => p.id !== product.id)});
-        } else {
-            // Добавить продукт в избранное
-            await addFavourite();
-            fetchFavourite();
+            console.log(response.data)
+        } catch (error) {
+            console.error(error);
         }
-    } catch (error) {
-        console.error(error);
     }
-}
-
-const addFavourite = async () => {
-    const token = localStorage.getItem('token');
-    const user = parseJwt(localStorage.getItem('token'))
-    try {
-        const response = await axios.put(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
-            user_id: user.id,
-            product_id: product.id,
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        console.log(response.data)
-    } catch (error) {
-        console.error(error);
-    }
-}
 
     const fetchFavourite = async () => {
         const token = localStorage.getItem('token');
@@ -77,11 +78,18 @@ const addFavourite = async () => {
             console.log(response.data)
         } catch (error) {
             console.error(error);
+
         }
     }
 
     const addToCart = async () => {
+        if (count < 1) {
+            return;
+        }
         const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login')
+        }
         const user = parseJwt(localStorage.getItem('token'))
         try {
             const response = await axios.put(`${config.apiUrl}/cart/product`, {
@@ -139,7 +147,7 @@ const addFavourite = async () => {
                                 />
                             </div>
                             <button onClick={() => toggleFavourite()}
-                                className={favourite.products && favourite.products.some((p: any) => p.id === product.id) ? "liked" : ""}>
+                                    className={`favourite-btn ${favourite.products && favourite.products.some((p: any) => p.id === product.id) ? "liked" : ""}`}>
                                 {favourite.products && favourite.products.some((p: any) => p.id === product.id) ? "В избранном" : "Добавить в избранное"}
                             </button>
                         </div>
@@ -167,9 +175,9 @@ const addFavourite = async () => {
                     </div>
                 </div>
                 <div className="product__reviews">
-                    <h2>Отзывы</h2>
+                    <Feedback productId={product.id}/>
                 </div>
-                <Reviews/>
+
             </div>
         </div>
     );

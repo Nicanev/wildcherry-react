@@ -1,0 +1,45 @@
+.delivery__container {
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .delivery__card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .delivery__card {
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    padding: 1.6rem;
+    width: 300px;
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+
+    .delivery__card-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .delivery__card-description {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .delivery__card-price {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .delivery__card-count {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .delivery__card-delivery-date {
+      font-size: 1.6rem;
+    }
+  }
+}

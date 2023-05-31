@@ -21,12 +21,12 @@ export function Profile() {
         })
             .then((response) => {
                 localStorage.clear();
-                navigate("/login");
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error.message);
                 localStorage.clear();
-                navigate("/");
+                window.location.reload();
             });
     };
     const [user, setUser] = useState<any>(null);
@@ -103,7 +103,7 @@ export function Profile() {
                     </div>
                 </div>
                 <div className="profile__data profile__block">
-                    <h1>Ваши данные:</h1>
+                    <h2>Ваши данные:</h2>
                     <div className="profile__inputs">
                         <input
                             type="text"
@@ -127,7 +127,7 @@ export function Profile() {
                     </div>
                 </div>
                 <div className="profile__exit profile__block">
-                    <h1>Выйти из профиля</h1>
+                    <h2>Выйти из профиля</h2>
                     <button onClick={exitHandler}>Выход</button>
                 </div>
             </div>

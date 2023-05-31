@@ -87,3 +87,29 @@
 .cart__delete::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
+
+.cart__count-input {
+  display: flex;
+  align-items: center;
+}
+
+.cart__count-input button {
+  background-color: #da2f58;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem; /* добавлено */
+}
+
+.cart__count-input button:hover {
+  background-color: #ff4d7d;;
+  transition: 0.2s;
+}
+
+.cart__count-input span {
+  color: black;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+}

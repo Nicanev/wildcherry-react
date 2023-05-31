@@ -4,6 +4,12 @@ import axios from "axios";
 import config from "../config";
 import {ProductsList} from "../components/Products/ProductsList";
 
+
+const h1Styles: any = {
+        fontSize: "3.2rem",
+        fontWeight: "bold",
+        margin: "4rem 0"
+    };
 export function FavouritePage() {
     const [products, setProducts] = useState<any>([]);
 
@@ -24,7 +30,7 @@ export function FavouritePage() {
             const productsWithImages = productList.map((product: any) => {
                 return {
                     ...product,
-                    image: '',
+                    images: [{url: ''}],
                 };
             });
             setProducts(productsWithImages);
@@ -45,7 +51,7 @@ export function FavouritePage() {
                             if (prevProduct.id === product.id) {
                                 return {
                                     ...prevProduct,
-                                    image: imageUrl,
+                                    images: [{url: imageUrl}],
                                 };
                             }
                             return prevProduct;
@@ -59,11 +65,14 @@ export function FavouritePage() {
     }, [products]);
 
 
-    return (<>
-        <div className="favourite__container">
-            <h1>Избранное</h1>
-            <ProductsList products={products}/>
-        </div>
-
-    </>)
+    return (
+  <div className="favourite__container">
+    <h1 style={h1Styles}>Избранное</h1>
+    {products.length > 0 ? (
+      <ProductsList products={products} />
+    ) : (
+      <p>В вашем избранном ничего нет</p>
+    )}
+  </div>
+);
 }

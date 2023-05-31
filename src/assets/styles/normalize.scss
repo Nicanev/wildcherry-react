@@ -4,7 +4,7 @@
 	box-sizing: border-box;
 }
 html {
-	font-size: 0.520835vw; // на разрешении 1920 0.520835vw === 10px
+	font-size: 0.520835vw;
 	font-style: normal;
 	font-weight: normal;
 	-webkit-animation: bugfix infinite 1s;
@@ -12,6 +12,8 @@ html {
 	margin: 0;
 	padding: 0;
 }
+
+
 body {
 	font-style: normal;
 	font-weight: normal;
@@ -120,4 +122,9 @@ input[type="number"] {
 		padding: 0 3rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать
 		width: 100%;
 	}
+}
+h1 {
+	font-size: 3.2rem;
+	font-weight: bold;
+	margin: 4rem 0;
 }

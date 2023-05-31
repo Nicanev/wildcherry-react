@@ -1,3 +1,10 @@
+import {ProductCatalogContainer} from "../components/Catalog/ProductCatalogContainer";
+import {useParams} from "react-router-dom";
+
 export function CatalogPage() {
-    return <></>
+    const { category } = useParams();
+    return   <>
+      {category && <ProductCatalogContainer category={category} />}
+      {!category && <ProductCatalogContainer />}
+    </>
 }

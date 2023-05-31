@@ -16,9 +16,13 @@ export function Login() {
             console.log(response.data);
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
-            navigate("/profile");
+            window.location.reload();
         }).catch((error) => {
-            console.log(error.error)
+            if (error.response && error.response.data && error.response.data.message) {
+                alert(error.response.data.message);
+            } else {
+                alert('Произошла ошибка при входе');
+            }
         })
 
     };

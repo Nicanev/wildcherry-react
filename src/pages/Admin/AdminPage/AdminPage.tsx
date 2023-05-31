@@ -2,15 +2,15 @@ import React from 'react';
 import AdminSidebar from "../../../components/AdminComponents/Sidebar/AdminSidebar";
 import AdminHeader from "../../../components/AdminComponents/Header/AdminHeader";
 import AdminDashboard from "../../../components/AdminComponents/Dashboard/AdminDashboard";
-import AdminUsers from "../../../components/AdminComponents/Tables/Users/AdminUsers";
-import AdminProducts from "../../../components/AdminComponents/Tables/Products/AdminProducts";
+import AdminUsers from "../../../components/Entity/Tables/Users/AdminUsers";
+import AdminProducts from "../../../components/Entity/Tables/Products/AdminProducts";
 import "./AdminPage.scss"
 import {useLocation} from "react-router-dom";
-import CreateUser from "../../../components/AdminComponents/Tables/Users/CreateUser";
-import EditUser from "../../../components/AdminComponents/Tables/Users/EditUser";
-import AdminCategory from "../../../components/AdminComponents/Tables/Category/AdminCategory";
-import AdminSubcategory from "../../../components/AdminComponents/Tables/Subcategory/AdminSubcategory";
-import CreateProduct from "../../../components/AdminComponents/Tables/Products/CreateProduct";
+import CreateUser from "../../../components/Entity/Tables/Users/CreateUser";
+import EditUser from "../../../components/Entity/Tables/Users/EditUser";
+import AdminCategory from "../../../components/Entity/Tables/Category/AdminCategory";
+import AdminSubcategory from "../../../components/Entity/Tables/Subcategory/AdminSubcategory";
+import CreateProduct from "../../../components/Entity/Tables/Products/CreateProduct";
 
 export function AdminPage() {
 
