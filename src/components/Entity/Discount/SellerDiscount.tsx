@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import parseJwt from "../../../../jwtUtils";
-import config from "../../../../config";
+import parseJwt from "../../../jwtUtils";
+import config from "../../../config";
 import axios from "axios";
 
 interface Discount {

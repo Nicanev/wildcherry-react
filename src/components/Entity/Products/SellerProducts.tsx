@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import "../Table.scss"
 import axios from "axios";
-import config from "../../../../config";
+import config from "../../../config";
 import {Link} from "react-router-dom";
-import parseJwt from "../../../../jwtUtils";
+import parseJwt from "../../../jwtUtils";
 
 interface Product {
     id: number;

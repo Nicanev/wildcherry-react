@@ -37,7 +37,7 @@ export function ProductsList({products}: ProductsProps) {
                                     <div className="card__rating">
                                         <Rating score={product.score} count_score={product.count_score}/>
                                     </div>
-                                )}
+                                ) }
                                 <button className="card__btn">В корзину</button>
                             </div>
                         </li>

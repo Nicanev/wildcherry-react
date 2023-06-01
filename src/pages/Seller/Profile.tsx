@@ -1,12 +1,12 @@
 import {Link, useLocation} from "react-router-dom";
 import "./Seller.scss"
 import React from "react";
-import SellerProducts from "../../components/Entity/Tables/Products/SellerProducts";
+import SellerProducts from "../../components/Entity/Products/SellerProducts";
 import {SellerAuthPage} from "./AuthPage";
-import CreateProduct from "../../components/Entity/Tables/Products/CreateProduct";
-import EditProduct from "../../components/Entity/Tables/Products/EditProduct";
+import CreateProduct from "../../components/Entity/Products/CreateProduct";
+import EditProduct from "../../components/Entity/Products/EditProduct";
 import {SellerPanel} from "../../components/SellerComponents/SellerPanel";
-import SellerDiscount from "../../components/Entity/Tables/Discount/SellerDiscount";
+import SellerDiscount from "../../components/Entity/Discount/SellerDiscount";
 
 export function PanelSellerPage() {
     const location = useLocation();

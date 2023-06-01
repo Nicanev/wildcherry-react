@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import config from "../../../../config";
+import config from "../../../config";
 import "../AddEditForm.scss"
-import refreshToken from "../../../../tokenUtils";
-import parseJwt from "../../../../jwtUtils";
+import refreshToken from "../../../tokenUtils";
+import parseJwt from "../../../jwtUtils";
 
 interface Product {
     name: string;
@@ -22,6 +22,7 @@ interface SubCategory {
     id: number;
     name: string;
 }
+
 interface User {
     id: number;
     name: string;
@@ -40,13 +41,14 @@ const CreateProduct: React.FC = () => {
         description: '',
         price: 0,
         owner: userInfo.id,
-        images: ['https://c.dns-shop.ru/thumb/st4/fit/500/500/8be3e2f04d108b4f8f9bf574406655f5/7c80865de448b9054d6bd5b08dc25df8674ff369065f8a8ce2fc392625bd0ea6.jpg.webp'],
+        images: [],
         lenght: 0,
         width: 0,
         height: 0,
         weight: 0,
     });
-
+    const [imageInputs, setImageInputs] = useState<string[]>(['']);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
     useEffect(() => {
         fetchSubCategory();
         fetchUsers()
@@ -107,6 +109,41 @@ const CreateProduct: React.FC = () => {
         }
     };
 
+    const handleImageInputChange = async (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await axios.post('http://62.109.26.91/upload.php', formData);
+                const imageUrl = response.data.url;
+                console.log(response.data.url)
+
+                const updatedImages = [...product.images];
+                updatedImages[index] = imageUrl;
+
+                setProduct((prevProduct) => ({
+                    ...prevProduct,
+                    images: updatedImages,
+                }));
+
+                const updatedImageInputs = [...imageInputs];
+                updatedImageInputs[index] = "uploaded";
+                setImageInputs(updatedImageInputs);
+            } catch (error) {
+                console.error('Failed to upload image:', error);
+            }
+        }
+    };
+
+
+    const handleAddImageInput = () => {
+        setImageInputs([...imageInputs, '']);
+        setImageFiles([...imageFiles, null as unknown as File]);
+    };
+
+
     return (
         <div className="create-user">
             <h2>Создать продукт</h2>
@@ -118,6 +155,7 @@ const CreateProduct: React.FC = () => {
                         name="name"
                         value={product.name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-item">
@@ -127,14 +165,73 @@ const CreateProduct: React.FC = () => {
                         name="description"
                         value={product.description}
                         onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-item form-images">
+                    <label>Изображения:</label>
+                    {imageInputs.map((imageInput, index) => (
+                        <div key={index} className="file-input-wrapper">
+                            <input
+                                className="file-input"
+                                type="file"
+                                name={`images-${index}`}
+                                accept="image/*"
+                                required
+                                onChange={(event) => handleImageInputChange(index, event)}
+                            />
+                            <span className="file-input-label">
+                                {imageInput ? 'Файл загружен' : 'Выбрать файл'}
+                            </span>
+                        </div>
+                    ))}
+                    <button type="button" onClick={handleAddImageInput}>
+                        Добавить изображение
+                    </button>
+                </div>
+                <div className="form-item">
+                    <label>Ширина:</label>
+                    <input
+                        type="number"
+                        name="width"
+                        value={product.width}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="form-item">
-                    <label>Price:</label>
+                    <label>Высота:</label>
+                    <input
+                        type="number"
+                        name="height"
+                        value={product.height}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-item">
+                    <label>Вес:</label>
+                    <input
+                        type="number"
+                        name="weight"
+                        value={product.weight}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-item">
+                    <label>Длина:</label>
+                    <input
+                        type="number"
+                        name="lenght"
+                        value={product.lenght}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-item">
+                    <label>Цена:</label>
                     <input
                         type="number"
                         name="price"
                         value={product.price}
+                        required
                         onChange={handleChange}
                     />
                 </div>
