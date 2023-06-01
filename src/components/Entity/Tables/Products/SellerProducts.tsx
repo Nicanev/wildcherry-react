@@ -3,6 +3,7 @@ import "../Table.scss"
 import axios from "axios";
 import config from "../../../../config";
 import {Link} from "react-router-dom";
+import parseJwt from "../../../../jwtUtils";
 
 interface Product {
     id: number;
@@ -10,7 +11,7 @@ interface Product {
     price: number;
 }
 
-const AdminProducts: React.FC = () => {
+const SellerProducts: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
@@ -19,16 +20,18 @@ const AdminProducts: React.FC = () => {
 
     const fetchProduct = async () => {
         const token = localStorage.getItem('token')
+        const user = parseJwt(token)
         try {
             const response = await axios.get(`${config.apiUrl}/product`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            setProducts(response.data);
-            console.log(response.data)
+            const filteredProducts = response.data.filter((product: any) => product.owner.id === user.id);
+
+            setProducts(filteredProducts);
         } catch (error) {
-            console.error('Failed to fetch users:', error);
+            console.error('Failed to fetch products:', error);
         }
     };
 
@@ -42,7 +45,7 @@ const AdminProducts: React.FC = () => {
             });
             setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
         } catch (error) {
-            console.error('Failed to delete user:', error);
+            console.error('Failed to delete product:', error);
 
         }
     };
@@ -50,8 +53,8 @@ const AdminProducts: React.FC = () => {
 
     return (
         <div className="admin-products admin-table">
-            <h2>Products</h2>
-            <Link to="/admin/product">
+            <h2>Ваши позиции</h2>
+            <Link to="/seller/product">
                 <button className="admin-table__addBtn">Добавить продукт</button>
             </Link>
             <table>
@@ -70,7 +73,9 @@ const AdminProducts: React.FC = () => {
                         <td>{product.name}</td>
                         <td>{product.price}</td>
                         <td>
-                            <button>Edit</button>
+                            <Link to={'/seller/product/' + product.id}>
+                                <button>Изменить</button>
+                            </Link>
                             <button onClick={() => deleteProduct(product.id)}>Удалить</button>
                         </td>
                     </tr>
@@ -81,4 +86,4 @@ const AdminProducts: React.FC = () => {
     );
 };
 
-export default AdminProducts;
+export default SellerProducts;

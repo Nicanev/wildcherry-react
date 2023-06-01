@@ -11,6 +11,7 @@ import EditUser from "../../../components/Entity/Tables/Users/EditUser";
 import AdminCategory from "../../../components/Entity/Tables/Category/AdminCategory";
 import AdminSubcategory from "../../../components/Entity/Tables/Subcategory/AdminSubcategory";
 import CreateProduct from "../../../components/Entity/Tables/Products/CreateProduct";
+import EditProduct from "../../../components/Entity/Tables/Products/EditProduct";
 
 export function AdminPage() {
 
@@ -18,6 +19,7 @@ export function AdminPage() {
 
     const renderComponent = () => {
         const matchUserRoute = location.pathname.match(/^\/admin\/user\/(\d+)$/);
+        const matchProductRoute = location.pathname.match(/^\/admin\/product\/(\d+)$/);
         if (location.pathname === '/admin') {
             return <AdminDashboard/>;
         } else if (location.pathname === '/admin/users') {
@@ -35,6 +37,10 @@ export function AdminPage() {
         } else if (matchUserRoute) {
             const userId = Number(matchUserRoute[1]);
             return <EditUser userId={userId}/>;
+        }
+        else if (matchProductRoute) {
+            const productId = Number(matchProductRoute[1]);
+            return <EditProduct productId={productId}/>;
         }
         return null;
     };

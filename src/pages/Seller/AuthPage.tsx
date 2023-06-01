@@ -1,3 +1,3 @@
-export function AuthPage() {
+export function SellerAuthPage() {
     return <></>
 }

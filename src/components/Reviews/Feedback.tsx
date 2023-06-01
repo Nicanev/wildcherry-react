@@ -6,10 +6,13 @@ import config from "../../config";
 import "./Feedback.scss"
 import parseJwt from "../../jwtUtils";
 import {useNavigate} from "react-router-dom";
+import Pagination from "../Pagination/Pagination";
 
-const Feedback: React.FC<{ productId: string }> = ({ productId }) => {
+const Feedback: React.FC<{ productId: string }> = ({productId}) => {
     const [isReviewAdded, setIsReviewAdded] = useState(false);
     const [feedbackItems, setFeedbackItems] = useState<any>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -21,12 +24,16 @@ const Feedback: React.FC<{ productId: string }> = ({ productId }) => {
             const response = await axios.get(`${config.apiUrl}/review`, {
                 params: {
                     order: 'ASC',
-                    page: 1,
-                    take: 10,
+                    page: currentPage,
+                    take: 5,
                     product: productId,
                 },
             });
             setFeedbackItems(response.data.reverse());
+            const totalCount = parseInt(response.headers['x-total-count']);
+            const itemsPerPage = 5;
+            const totalPages = Math.ceil(totalCount / itemsPerPage);
+            setTotalPages(totalPages);
         } catch (error) {
             console.error('Ошибка при получении отзывов:', error);
         }
@@ -55,17 +62,26 @@ const Feedback: React.FC<{ productId: string }> = ({ productId }) => {
             console.log(error)
         }
     };
-     return (
-    <div className="feedback">
-      <h2>Отправить отзыв</h2>
-      {isReviewAdded ? (
-        <p>Отзыв успешно отправлен!</p>
-      ) : (
-        <FeedbackForm onSubmit={handleSubmit} />
-      )}
-      <FeedbackList feedbackItems={feedbackItems} />
-    </div>
-  );
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        fetchFeedbackItems()
+    };
+
+    return (
+        <div className="feedback">
+            <h2>Отправить отзыв</h2>
+            {isReviewAdded ? (
+                <p>Отзыв успешно отправлен!</p>
+            ) : (
+                <FeedbackForm onSubmit={handleSubmit}/>
+            )}
+            <FeedbackList feedbackItems={feedbackItems}/>
+
+            <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
+
+        </div>
+    );
 };
 
 export default Feedback;

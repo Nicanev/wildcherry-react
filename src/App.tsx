@@ -16,8 +16,6 @@ import {FavouritePage} from "./pages/FavouritePage";
 import {CatalogPage} from "./pages/CatalogPage";
 import SearchPage from "./pages/SearchPage";
 import {PanelSellerPage} from "./pages/Seller/Profile";
-import {SellerProductPage} from "./pages/Seller/ProductPage";
-import {SellerProductFormPage} from "./pages/Seller/SellerProductFormPage";
 import {useEffect} from "react";
 import refreshToken from "./tokenUtils";
 import {PaymentPage} from "./pages/PaymentPage";
@@ -61,10 +59,8 @@ function App() {
                     {/* Защищенный роут */}
                     <Route path="/admin/*" element={RequireAuth() ? <AdminPage/> : <Navigate to="/admin-auth"/>}/>
                     <Route path="/admin-auth" element={<AdminAuthPage/>}/>
-                    <Route path="/seller" element={RequireAuth() ? <PanelSellerPage/> : <Navigate to="/login"/>}/>
+                    <Route path="/seller/*" element={RequireAuth() ? <PanelSellerPage/> : <Navigate to="/login"/>}/>
                     <Route path="/payment" element={<PaymentPage/>}/>
-                    <Route path="/seller/products" element={<SellerProductPage/>}/>
-                    <Route path="/seller/product" element={<SellerProductFormPage/>}/>
                 </Routes>
             </main>
             <Footer/>

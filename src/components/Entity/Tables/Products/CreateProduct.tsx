@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from "../../../../config";
 import "../AddEditForm.scss"
 import refreshToken from "../../../../tokenUtils";
+import parseJwt from "../../../../jwtUtils";
 
 interface Product {
     name: string;
@@ -10,7 +11,7 @@ interface Product {
     price: number;
     sub_category: number;
     owner: number;
-    images: string;
+    images: any;
     lenght: number;
     width: number;
     height: number;
@@ -30,6 +31,7 @@ interface User {
 }
 
 const CreateProduct: React.FC = () => {
+    const userInfo = parseJwt(localStorage.getItem('token'))
     const [subCategory, setSubCategory] = useState<SubCategory[]>([]);
     const [users, setUsers] = useState<User[]>([]);
     const [product, setProduct] = useState<Product>({
@@ -37,13 +39,14 @@ const CreateProduct: React.FC = () => {
         sub_category: 1,
         description: '',
         price: 0,
-        owner: 0,
-        images: '',
+        owner: userInfo.id,
+        images: ['https://c.dns-shop.ru/thumb/st4/fit/500/500/8be3e2f04d108b4f8f9bf574406655f5/7c80865de448b9054d6bd5b08dc25df8674ff369065f8a8ce2fc392625bd0ea6.jpg.webp'],
         lenght: 0,
         width: 0,
         height: 0,
         weight: 0,
     });
+
     useEffect(() => {
         fetchSubCategory();
         fetchUsers()
@@ -63,6 +66,10 @@ const CreateProduct: React.FC = () => {
     };
 
     const fetchUsers = async () => {
+        if (!userInfo.roles[2]) {
+            setUsers([userInfo])
+            return
+        }
         const token = localStorage.getItem('token')
         try {
             const response = await axios.get(`${config.apiUrl}/user`, {
@@ -73,7 +80,6 @@ const CreateProduct: React.FC = () => {
             setUsers(response.data);
         } catch (error) {
             console.error('Failed to fetch users:', error);
-            refreshToken();
         }
     };
 
@@ -95,7 +101,7 @@ const CreateProduct: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log('User created successfully!');
+            console.log('Product created successfully!');
         } catch (error) {
             console.error('Failed to create user:', error);
         }
@@ -142,7 +148,7 @@ const CreateProduct: React.FC = () => {
                 </div>
                 <div className="form-item">
                     <label>Продавец:</label>
-                    <select name="owner" value={product.owner} onChange={handleChange}>
+                    <select name="owner" value={product.owner} onChange={handleChange} disabled={!userInfo.roles[2]}>
                         {users.map((user) => (
                             <option key={user.id} value={user.id}>{user.email} </option>
                         ))}

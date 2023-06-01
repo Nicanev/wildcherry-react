@@ -70,7 +70,9 @@ const AdminProducts: React.FC = () => {
                         <td>{product.name}</td>
                         <td>{product.price}</td>
                         <td>
-                            <button>Edit</button>
+                            <Link to={'/admin/product/' + product.id}>
+                                <button>Изменить</button>
+                            </Link>
                             <button onClick={() => deleteProduct(product.id)}>Удалить</button>
                         </td>
                     </tr>

@@ -5,12 +5,15 @@ import config from "../../config";
 import axios from "axios";
 import {ProductsList} from "../Products/ProductsList";
 import PriceFilter from "./PriceFilter";
+import Pagination from "../Pagination/Pagination";
 
 export function ProductCatalogContainer({category, search}: { category?: string; search?: string }) {
     const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
     const [selectedByOrder, setSelectedByOrder] = useState<string | null>(null);
     const [selectedPrice, setSelectedPrice] = useState<number[]>([0, 35000]);
     const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const handleCategoryChange = (categories: string[]) => {
         setSelectedCategory(categories);
     };
@@ -36,8 +39,8 @@ export function ProductCatalogContainer({category, search}: { category?: string;
         try {
             const queryParams: any = {
                 order: 'ASC',
-                page: 1,
-                take: 20,
+                page: currentPage,
+                take: 10,
                 orderBy: 'score',
                 priceStart: selectedPrice[0],
                 priceEnd: selectedPrice[1],
@@ -56,12 +59,18 @@ export function ProductCatalogContainer({category, search}: { category?: string;
 
             const data = response.data;
             setFilteredProducts(data);
-            console.log(response.data)
+            const totalCount = parseInt(response.headers['x-total-count']);
+            const itemsPerPage = 10;
+            const totalPages = Math.ceil(totalCount / itemsPerPage);
+            setTotalPages(totalPages);
         } catch (error) {
             console.error('Error fetching filtered products:', error);
         }
     };
-
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        fetchFilteredProducts()
+    };
 
     return <>
         <div className="product-catalog">
@@ -76,7 +85,10 @@ export function ProductCatalogContainer({category, search}: { category?: string;
                         />
                     </div>
                 </div>
-                <ProductsList products={filteredProducts}/>
+                <div>
+                    <ProductsList products={filteredProducts}/>
+                    <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
+                </div>
             </div>
         </div>
     </>

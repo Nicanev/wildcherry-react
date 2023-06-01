@@ -15,23 +15,20 @@ export function ProductsList({products}: ProductsProps) {
                         <li key={product.id} className="product__card card">
                             <div className="card__img">
                                 <img src={product.images[0].url} alt="Product"/>
+                                {product.discounts && product.discounts.length > 0 ? (
+                                    <div className="card__discount">-{product.discounts[0].value}%</div>
+                                ) : null}
                             </div>
                             <div className="card__body">
-                                {/*<div className="card__price">*/}
-                                {/*	<div className="card__current-price">*/}
-                                {/*		{Math.round(*/}
-                                {/*			(product.price / 100) * product.discount*/}
-                                {/*		).toLocaleString()}{" "}*/}
-                                {/*		₽*/}
-                                {/*	</div>*/}
-                                {/*	<div className="card__old-price">*/}
-                                {/*		{product.price.toLocaleString()} ₽*/}
-                                {/*	</div>*/}
-                                {/*</div>*/}
                                 <div className="card__price">
                                     <div className="card__current-price">
-                                        {product.price.toLocaleString()} ₽
+                                        {Math.round(
+                                            (product.total_price)).toLocaleString()}{" "}
+                                        ₽
                                     </div>
+                                    {product.price !== product.total_price ? (
+                                        <div className="card__old-price">{product.price.toLocaleString()} ₽</div>
+                                    ) : null}
                                 </div>
                                 <Link to={`/product/${product.id}`}>
                                     <div className="card__title">{product.name}</div>

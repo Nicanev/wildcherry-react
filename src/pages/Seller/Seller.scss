@@ -1,0 +1,23 @@
+.profile-seller {
+
+  &__btn {
+    display: flex;
+    margin-bottom: 5rem;
+
+    .active {
+      color: #da2f58;
+      font-weight: 600;
+      border-bottom: 0.2rem solid #da2f58;
+    }
+
+    button {
+      padding: 2rem;
+
+      &:hover {
+        color: #da2f58;
+      }
+    }
+  }
+
+
+}

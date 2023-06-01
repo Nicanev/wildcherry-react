@@ -121,12 +121,11 @@ export function ProductDetail({product, productImages}: ProductProps) {
                 <div className="product__main">
                     <ImageGallery images={productImages}/>
                     <div className="product__price-block">
-                        <div className="product__oldprice">
-                            {product?.price.toLocaleString()} ₽
-                        </div>
+                        {product.price !== product.total_price ? (
+                            <div className="product__oldprice">{product.price.toLocaleString()} ₽</div>
+                        ) : null}
                         <div className="product__price">
-                            {product?.price.toLocaleString()} ₽
-                            ₽
+                            {Math.round(product?.total_price).toLocaleString()} ₽
                         </div>
                         <div className="product__delivery">
                             Доставим в пункт выдачи{" "}
