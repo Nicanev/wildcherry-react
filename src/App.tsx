@@ -18,7 +18,7 @@ import SearchPage from "./pages/SearchPage";
 import {PanelSellerPage} from "./pages/Seller/Profile";
 import {useEffect} from "react";
 import refreshToken from "./tokenUtils";
-import {PaymentPage} from "./pages/PaymentPage";
+import {PaymentPage} from "./pages/Payment/PaymentPage";
 
 
 function RequireAuth(): boolean {

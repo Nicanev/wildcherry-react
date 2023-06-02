@@ -1,0 +1,39 @@
+.payment__container {
+  form {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+}
+
+form > div {
+  margin-bottom: 2rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+}
+
+button[type="submit"] {
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 600;
+  background-color: #de3163;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #c53158;
+}
+}
+
+

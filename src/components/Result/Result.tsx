@@ -5,10 +5,9 @@ interface ResultProps {
 }
 
 export function Result({ products }: ResultProps) {
-	return <>
+	return (
 		<div className="product__container">
 			{products && <ProductsList products={products} />}
 		</div>
-
-	</>;
+	);
 }

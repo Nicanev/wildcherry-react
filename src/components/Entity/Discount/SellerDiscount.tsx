@@ -24,13 +24,12 @@ const SellerDiscount: React.FC = () => {
         const token = localStorage.getItem('token')
         const user = parseJwt(token)
         try {
-            const response = await axios.get(`${config.apiUrl}/discount`, {
+            const response = await axios.get(`${config.apiUrl}/discount?user=${user.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            const filteredDiscount = response.data.filter((discount: any) => discount.owner.id === user.id);
-            setDiscount(filteredDiscount);
+            setDiscount(response.data);
         } catch (error) {
             console.error('Failed to fetch discount:', error);
         }
@@ -53,7 +52,7 @@ const SellerDiscount: React.FC = () => {
      return (
         <div className="admin-products admin-table">
             <h2>Ваши акции</h2>
-            <Link to="/seller/product">
+            <Link to="/seller/discount">
                 <button className="admin-table__addBtn">Добавить акцию</button>
             </Link>
             <table>
@@ -72,7 +71,7 @@ const SellerDiscount: React.FC = () => {
                         <td>{discount.title}</td>
                         <td>{discount.value}</td>
                         <td>
-                            <Link to={'/seller/discount/' + discount.id}>
+                            <Link to={'/seller/discount' + discount.id}>
                                 <button>Изменить</button>
                             </Link>
                             <button onClick={() => deleteDiscount(discount.id)}>Удалить</button>

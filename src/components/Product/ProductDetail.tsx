@@ -1,5 +1,4 @@
 import "./Product.scss";
-// import {ReactComponent as Like} from "../../assets/icons/Like.svg";
 import {Rating} from "../Reviews/Rating";
 import ImageGallery from "../Gallery/ImageGallery";
 import axios from "axios";
@@ -15,29 +14,40 @@ interface ProductProps {
 }
 
 export function ProductDetail({product, productImages}: ProductProps) {
-    let date = new Date();
-    let navigate = useNavigate();
+    const date = new Date();
+    const navigate = useNavigate();
     const [count, setCount] = useState<any>(1);
+    const [specification, setSpecification] = useState<any>({});
     const [favourite, setFavourite] = useState<any>([]);
 
     useEffect(() => {
-        fetchFavourite()
-    }, [])
+        fetchFavourite();
+        fetchSpecification()
+    }, []);
 
     const toggleFavourite = async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
-            navigate('/login')
+            navigate("/login");
         }
-        const user = parseJwt(localStorage.getItem('token'))
+        const user = parseJwt(localStorage.getItem("token"));
         try {
-            if (favourite.products && favourite.products.some((p: any) => p.id === product.id)) {
-                await axios.delete(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+            if (
+                favourite.products &&
+                favourite.products.some((p: any) => p.id === product.id)
+            ) {
+                await axios.delete(
+                    `${config.apiUrl}/favorite/${user.id}/${product.id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setFavourite({
+                    ...favourite,
+                    products: favourite.products.filter((p: any) => p.id !== product.id),
                 });
-                setFavourite({...favourite, products: favourite.products.filter((p: any) => p.id !== product.id)});
             } else {
                 await addFavourite();
                 fetchFavourite();
@@ -45,65 +55,87 @@ export function ProductDetail({product, productImages}: ProductProps) {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const addFavourite = async () => {
-        const token = localStorage.getItem('token');
-        const user = parseJwt(localStorage.getItem('token'))
+        const token = localStorage.getItem("token");
+        const user = parseJwt(localStorage.getItem("token"));
         try {
-            const response = await axios.put(`${config.apiUrl}/favorite/${user.id}/${product.id}`, {
-                user_id: user.id,
-                product_id: product.id,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+            const response = await axios.put(
+                `${config.apiUrl}/favorite/${user.id}/${product.id}`,
+                {
+                    user_id: user.id,
+                    product_id: product.id,
                 },
-            });
-            console.log(response.data)
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const fetchFavourite = async () => {
-        const token = localStorage.getItem('token');
-        const user = parseJwt(localStorage.getItem('token'))
+        const token = localStorage.getItem("token");
+        const user = parseJwt(localStorage.getItem("token"));
         try {
             const response = await axios.get(`${config.apiUrl}/favorite/${user.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setFavourite(response.data)
-            console.log(response.data)
+            setFavourite(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error(error);
-
         }
-    }
+    };
+
+    const fetchSpecification = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(`${config.apiUrl}/specification/${product.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setSpecification(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const addToCart = async () => {
         if (count < 1) {
             return;
         }
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
-            navigate('/login')
+            navigate("/login");
         }
-        const user = parseJwt(localStorage.getItem('token'))
+        const user = parseJwt(localStorage.getItem("token"));
         try {
-            const response = await axios.put(`${config.apiUrl}/cart/product`, {
-                user_id: user.id,
-                product_id: product.id,
-                count: Number(count)
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+            const response = await axios.put(
+                `${config.apiUrl}/cart/product`,
+                {
+                    user_id: user.id,
+                    product_id: product.id,
+                    count: Number(count),
                 },
-            });
-            console.log(response.data)
-            console.log(count)
-            navigate('/cart')
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(response.data);
+            console.log(count);
+            navigate("/cart");
         } catch (error) {
             console.error(error);
         }
@@ -122,7 +154,9 @@ export function ProductDetail({product, productImages}: ProductProps) {
                     <ImageGallery images={productImages}/>
                     <div className="product__price-block">
                         {product.price !== product.total_price ? (
-                            <div className="product__oldprice">{product.price.toLocaleString()} ₽</div>
+                            <div className="product__oldprice">
+                                {product.price.toLocaleString()} ₽
+                            </div>
                         ) : null}
                         <div className="product__price">
                             {Math.round(product?.total_price).toLocaleString()} ₽
@@ -145,9 +179,19 @@ export function ProductDetail({product, productImages}: ProductProps) {
                                     onChange={(e) => setCount(e.target.value)}
                                 />
                             </div>
-                            <button onClick={() => toggleFavourite()}
-                                    className={`favourite-btn ${favourite.products && favourite.products.some((p: any) => p.id === product.id) ? "liked" : ""}`}>
-                                {favourite.products && favourite.products.some((p: any) => p.id === product.id) ? "В избранном" : "Добавить в избранное"}
+                            <button
+                                onClick={() => toggleFavourite()}
+                                className={`favourite-btn ${
+                                    favourite.products &&
+                                    favourite.products.some((p: any) => p.id === product.id)
+                                        ? "liked"
+                                        : ""
+                                }`}
+                            >
+                                {favourite.products &&
+                                favourite.products.some((p: any) => p.id === product.id)
+                                    ? "В избранном"
+                                    : "Добавить в избранное"}
                             </button>
                         </div>
                     </div>
@@ -160,23 +204,19 @@ export function ProductDetail({product, productImages}: ProductProps) {
                     <div className="product__additional">
                         <h1>Характеристики</h1>
                         <div className="product__info">
-                            {/*<ul className="product__categories">*/}
-                            {/*	{category?.additional.map((el: any) => {*/}
-                            {/*		return <li key={el}>{el}:</li>;*/}
-                            {/*	})}*/}
-                            {/*</ul>*/}
-                            {/*<ul className="product__additional">*/}
-                            {/*	{product?.additional.map((el: any) => {*/}
-                            {/*		return <li key={el}>{el}</li>;*/}
-                            {/*	})}*/}
-                            {/*</ul>*/}
+                            {specification && (
+                                <ul className="product__categories">
+                                    <li>Ширина: {specification.width}</li>
+                                    <li>Высота: {specification.height}</li>
+                                    <li>Ширина: {specification.width}</li>
+                                </ul>
+                            )}
                         </div>
                     </div>
                 </div>
                 <div className="product__reviews">
                     <Feedback productId={product.id}/>
                 </div>
-
             </div>
         </div>
     );

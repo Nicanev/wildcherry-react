@@ -41,23 +41,26 @@ export function Delivery() {
         <div className="delivery__container">
             <h1>Доставки</h1>
             {deliveryData ? (
-                <div>
-                    <h2>Заказанные продукты:</h2>
-                    <div className="delivery__card-container">
-                        {deliveryData.products.map((product: any) => (
-                            <Link key={product.id} to={`/product/${product.id}`}>
-                                <div key={product.id} className="delivery__card">
-                                    <h3 className="delivery__card-title">{product.name}</h3>
-                                    <p className="delivery__card-price">Цена: {product.price.toLocaleString()}</p>
-                                    <p className="delivery__card-count">Количество: {product.DeliveryProducts.count}</p>
-                                    <p className="delivery__card-delivery-date">
-                                        Примерная дата доставки: {calculateDeliveryDate()}
-                                    </p>
-                                </div>
-                            </Link>
-                        ))}
+                deliveryData.products.length > 0 ? (
+                    <div>
+                        <h2>Заказанные продукты:</h2>
+                        <div className="delivery__card-container">
+                            {deliveryData.products.map((product: any) => (
+                                <Link key={product.id} to={`/product/${product.id}`}>
+                                    <div key={product.id} className="delivery__card">
+                                        <h3 className="delivery__card-title">{product.name}</h3>
+                                        <p className="delivery__card-price">Цена: {product.price.toLocaleString()}</p>
+                                        <p className="delivery__card-count">Количество: {product.DeliveryProducts.count}</p>
+                                        <p className="delivery__card-delivery-date">Примерная дата
+                                            доставки: {calculateDeliveryDate()}</p>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <p>Нет данных о доставке</p>
+                )
             ) : (
                 <Loader/>
             )}

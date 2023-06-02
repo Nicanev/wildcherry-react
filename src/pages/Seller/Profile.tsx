@@ -7,6 +7,7 @@ import CreateProduct from "../../components/Entity/Products/CreateProduct";
 import EditProduct from "../../components/Entity/Products/EditProduct";
 import {SellerPanel} from "../../components/SellerComponents/SellerPanel";
 import SellerDiscount from "../../components/Entity/Discount/SellerDiscount";
+import CreateSeller from "../../components/Entity/Discount/CreateDiscount";
 
 export function PanelSellerPage() {
     const location = useLocation();
@@ -24,6 +25,8 @@ export function PanelSellerPage() {
         } else if (matchProductRoute) {
             const productId = Number(matchProductRoute[1]);
             return <EditProduct productId={productId}/>;
+        } else if (location.pathname === '/seller/discount') {
+            return <CreateSeller/>;
         }
         return null;
     }

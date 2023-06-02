@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
 import axios from "axios";
-import parseJwt from "../jwtUtils";
-import config from "../config";
+import parseJwt from "../../jwtUtils";
+import config from "../../config";
+import "./payment.scss"
+import {useNavigate} from "react-router-dom";
 
 export function PaymentPage() {
+    const navigate = useNavigate();
     const [cardNumber, setCardNumber] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
     const [cartData, setCartData] = useState<any>([]);
@@ -71,11 +73,8 @@ export function PaymentPage() {
                 },
             });
             console.log('Cart cleared successfully');
+            navigate('/delivery')
 
-            // Reset form fields
-            setCardNumber('');
-            setExpirationDate('');
-            setCvv('');
         } catch (error) {
             console.error('Payment error:', error);
         }
@@ -96,7 +95,7 @@ export function PaymentPage() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="expirationDate">Expiration Date:</label>
+                    <label htmlFor="expirationDate">Дата окончания срока:</label>
                     <input
                         type="text"
                         id="expirationDate"
@@ -108,7 +107,7 @@ export function PaymentPage() {
                 <div>
                     <label htmlFor="cvv">CVV:</label>
                     <input
-                        type="text"
+                        type="password"
                         id="cvv"
                         value={cvv}
                         onChange={handleCvvChange}

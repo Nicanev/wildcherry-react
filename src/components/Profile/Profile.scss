@@ -8,6 +8,7 @@
 	&__inputs {
 		display: flex;
 		gap: 2rem;
+		flex-wrap: wrap;
 		input {
 			height: 3.5rem;
 			border-radius: 0.4rem;
@@ -26,7 +27,7 @@
 	}
 	&__block {
 		padding: 2rem;
-		box-shadow: 0 0 1px rgba(0,0,0,.1), 0 0 30px rgba(19,40,71,.09);
+		box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 0 30px rgba(19, 40, 71, 0.09);
 		margin-bottom: 2rem;
 		border-radius: 1rem;
 		h2 {

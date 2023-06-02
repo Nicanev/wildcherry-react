@@ -76,10 +76,13 @@ const Feedback: React.FC<{ productId: string }> = ({productId}) => {
             ) : (
                 <FeedbackForm onSubmit={handleSubmit}/>
             )}
-            <FeedbackList feedbackItems={feedbackItems}/>
 
-            <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
-
+            {feedbackItems.length > 0 && (
+                <>
+                    <FeedbackList feedbackItems={feedbackItems}/>
+                    <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
+                </>
+            )}
         </div>
     );
 };

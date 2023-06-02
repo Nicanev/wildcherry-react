@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import "./Header.scss";
 import {ReactComponent as Logo} from "../../assets/icons/Logo.svg";
-import {ReactComponent as Loop} from "../../assets/icons/Loop.svg";
 import {ReactComponent as Delivery} from "../../assets/icons/Delivery.svg";
 import {ReactComponent as Like} from "../../assets/icons/Like.svg";
 import {ReactComponent as Cart} from "../../assets/icons/Cart.svg";
@@ -13,6 +12,8 @@ import {ModalContext} from "../../Context/ModalContext";
 import {Link} from "react-router-dom";
 import {ReactComponent as Burger} from "../../assets/icons/burger.svg";
 import {Search} from "../../components/Search/SearchInput";
+import {SearchMobile} from "../../components/Search/SearchMobile";
+import MobileMenu from "../../components/MobileMenu/MobileMenu";
 
 export const Header = () => {
     return (
@@ -25,7 +26,8 @@ export const Header = () => {
             </div>
             <div className="header__downmenu">
                 <div className="header__container">
-                    <Burger className="header__burger"/>
+                    {/*<Burger className="header__burger"/>*/}
+                    <MobileMenu/>
                     <Link to="/">
                         <Logo className="header__logo"/>
                     </Link>
@@ -62,8 +64,7 @@ export const Header = () => {
                 </div>
                 <div className="header__container for-mobile">
                     <div className="header__search-mobile ">
-                        <Loop/>
-                        <input type="text" placeholder="Поиск"/>
+                        <SearchMobile/>
                     </div>
                 </div>
             </div>
