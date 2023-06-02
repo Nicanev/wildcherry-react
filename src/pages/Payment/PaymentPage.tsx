@@ -82,7 +82,7 @@ export function PaymentPage() {
     };
 
     return (
-        <div>
+        <div className="payment__container">
             <h1>Страница оплаты</h1>
             <form onSubmit={handleSubmit}>
                 <div>
