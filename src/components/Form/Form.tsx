@@ -2,18 +2,57 @@ import { useEffect, useState } from "react";
 import "./Form.scss";
 import CSS from "csstype";
 import { Navigate } from "react-router-dom";
-import { Loader } from "../UI/Loader/Loader";
 
 interface FormProps {
 	title: string;
 	handleClick: (email: string, password: string) => void;
 }
 
-const inputErrorStyle: CSS.Properties = {
-	border: "0.1rem solid red",
-	WebkitTransition: "0.2s all",
-	msTransition: "0.2s all",
-};
+interface InputFieldProps {
+	name: string;
+	type: string;
+	value: string;
+	label: string;
+	placeholder: string;
+	error: string;
+	dirty: boolean;
+	handler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	blurHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function InputField({
+	name,
+	type,
+	value,
+	label,
+	placeholder,
+	error,
+	dirty,
+	handler,
+	blurHandler,
+}: InputFieldProps) {
+	const errorStyle: CSS.Properties = {
+		border: error && dirty ? "0.1rem solid red" : "",
+		WebkitTransition: "0.2s all",
+		msTransition: "0.2s all",
+	};
+
+	return (
+		<div className="form__field">
+			<label htmlFor={name}>{label}:</label>
+			<input
+				name={name}
+				type={type}
+				style={errorStyle}
+				value={value}
+				onBlur={(e) => blurHandler(e)}
+				onChange={(e) => handler(e)}
+				placeholder={placeholder}
+			/>
+			{dirty && error && <div className="form__error">{error}</div>}
+		</div>
+	);
+}
 
 export function Form({ title, handleClick }: FormProps) {
 	const [email, setEmail] = useState("");
@@ -82,37 +121,29 @@ export function Form({ title, handleClick }: FormProps) {
 				<Navigate replace to="/profile" />
 			) : (
 				<form className="form" onSubmit={handleSubmit}>
-					<div className="form__field">
-						<label htmlFor="email">Почта:</label>
-						<input
-							name="email"
-							type="email"
-							style={emailError && emailDirty ? inputErrorStyle : {}}
-							value={email}
-							onBlur={(e) => blurHandler(e)}
-							onChange={(e) => emailHandler(e)}
-							placeholder="Почта"
-						/>
-						{emailDirty && emailError && (
-							<div className="form__error">{emailError}</div>
-						)}
-					</div>
+					<InputField
+						name="email"
+						type="email"
+						value={email}
+						error={emailError}
+						dirty={emailDirty}
+						handler={emailHandler}
+						blurHandler={blurHandler}
+						label="Почта"
+						placeholder="Почта"
+					/>
 
-					<div className="form__field">
-						<label htmlFor="password">Пароль:</label>
-						<input
-							name="password"
-							type="password"
-							style={passwordError && passwordDirty ? inputErrorStyle : {}}
-							value={password}
-							onBlur={(e) => blurHandler(e)}
-							onChange={(e) => passwordHandler(e)}
-							placeholder="Пароль"
-						/>
-						{passwordDirty && passwordError && (
-							<div className="form__error">{passwordError}</div>
-						)}
-					</div>
+					<InputField
+						name="password"
+						type="password"
+						value={password}
+						error={passwordError}
+						dirty={passwordDirty}
+						handler={passwordHandler}
+						blurHandler={blurHandler}
+						label="Пароль"
+						placeholder="Пароль"
+					/>
 
 					<button
 						disabled={!formValid}
