@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/wildcherry/static/css/main.64d89198.css",
+    "main.js": "/wildcherry/static/js/main.fcfa9948.js",
+    "static/js/787.e95897ad.chunk.js": "/wildcherry/static/js/787.e95897ad.chunk.js",
+    "static/media/banner1.jpg": "/wildcherry/static/media/banner1.ee7ad08d75a16cec1c32.jpg",
+    "static/media/montserrat-v25-latin_cyrillic-700italic.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-700italic.c146c245c0bfd38de5a4.woff",
+    "static/media/montserrat-v25-latin_cyrillic-600italic.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-600italic.206dc2381dac4c698dc5.woff",
+    "static/media/montserrat-v25-latin_cyrillic-italic.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-italic.db65557bfe9b0e6e2feb.woff",
+    "static/media/montserrat-v25-latin_cyrillic-700.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-700.5730e71aefae2c2f6a30.woff",
+    "static/media/montserrat-v25-latin_cyrillic-regular.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-regular.275156bc88fb38e6094d.woff",
+    "static/media/montserrat-v25-latin_cyrillic-600.woff": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-600.4edd74c91c8986a260a8.woff",
+    "static/media/montserrat-v25-latin_cyrillic-700italic.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-700italic.13ff4dc9050130c336a0.woff2",
+    "static/media/montserrat-v25-latin_cyrillic-600italic.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-600italic.63b9a8ab3e966f0f4c9c.woff2",
+    "static/media/montserrat-v25-latin_cyrillic-italic.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-italic.38fe8b3b51e7b9cb5cef.woff2",
+    "static/media/montserrat-v25-latin_cyrillic-700.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-700.31b571dccdbaed783d32.woff2",
+    "static/media/montserrat-v25-latin_cyrillic-600.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-600.57bef0d4b76d324bc86f.woff2",
+    "static/media/montserrat-v25-latin_cyrillic-regular.woff2": "/wildcherry/static/media/montserrat-v25-latin_cyrillic-regular.62c0f043622de8dcd791.woff2",
+    "static/media/Logo.svg": "/wildcherry/static/media/Logo.30a6c279fe2629b97075f66dbc2ec0b5.svg",
+    "static/media/Catalog.svg": "/wildcherry/static/media/Catalog.9354ab447368f3046fa285881c94adf8.svg",
+    "static/media/Discord.svg": "/wildcherry/static/media/Discord.534c276aaef9d565a5e72a39b00a1437.svg",
+    "static/media/Cart.svg": "/wildcherry/static/media/Cart.7fb41592025f7132580461832285c8dc.svg",
+    "static/media/Delivery.svg": "/wildcherry/static/media/Delivery.48de68517339c6a7a9f0dc204f8a1eb9.svg",
+    "static/media/VK.svg": "/wildcherry/static/media/VK.98b455c6cbe3baab03d8a93c12c884d2.svg",
+    "static/media/Like.svg": "/wildcherry/static/media/Like.2a6fdb6c51692afa7af023218ba0fb8d.svg",
+    "static/media/User.svg": "/wildcherry/static/media/User.99597b3562f04d76fe51a2542e399edc.svg",
+    "static/media/telegram.svg": "/wildcherry/static/media/telegram.2fe71ad9de007515ada1894a1bdce5e1.svg",
+    "index.html": "/wildcherry/index.html",
+    "static/media/Star.svg": "/wildcherry/static/media/Star.1eee851022e815a03566198adfad569c.svg",
+    "static/media/Loop.svg": "/wildcherry/static/media/Loop.d3e1274a77f333dfa6f7657e7ca05d13.svg",
+    "static/media/burger.svg": "/wildcherry/static/media/burger.f1d2b2496339c39e2efda1c91f1fbfdb.svg",
+    "static/media/Close.svg": "/wildcherry/static/media/Close.e6987faaf87365d77e2bbe60f30bdc98.svg",
+    "main.64d89198.css.map": "/wildcherry/static/css/main.64d89198.css.map",
+    "main.fcfa9948.js.map": "/wildcherry/static/js/main.fcfa9948.js.map",
+    "787.e95897ad.chunk.js.map": "/wildcherry/static/js/787.e95897ad.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64d89198.css",
+    "static/js/main.fcfa9948.js"
+  ]
+}
