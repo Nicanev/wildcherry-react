@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import config from "../../../config";
 import "../AddEditForm.scss"
-import refreshToken from "../../../tokenUtils";
 import parseJwt from "../../../jwtUtils";
 
 interface Product {

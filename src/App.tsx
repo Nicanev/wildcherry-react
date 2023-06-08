@@ -19,11 +19,31 @@ import {PanelSellerPage} from "./pages/Seller/Profile";
 import {useEffect} from "react";
 import refreshToken from "./tokenUtils";
 import {PaymentPage} from "./pages/Payment/PaymentPage";
+import parseJwt from "./jwtUtils";
+import {SellerAuthPage} from "./pages/Seller/AuthPage";
 
 
 function RequireAuth(): boolean {
     const token = localStorage.getItem("token");
     return !!token;
+}
+
+function RequireAdminRole(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+        const user = parseJwt(token);
+        return user.roles.some((role: any) => role.value === 'ADMIN');
+    }
+    return false;
+}
+
+function RequireSellerRole(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+        const user = parseJwt(token);
+        return user.roles.some((role: any) => role.value === 'SELLER' || role.value === 'ADMIN');
+    }
+    return false;
 }
 
 function App() {
@@ -57,9 +77,15 @@ function App() {
                     <Route path="/catalog/:category" element={<CatalogPage/>}/>
 
                     {/* Защищенный роут */}
-                    <Route path="/admin/*" element={RequireAuth() ? <AdminPage/> : <Navigate to="/admin-auth"/>}/>
+                    <Route path="/admin/*"
+                           element={RequireAuth() && RequireAdminRole() ? <AdminPage/> : <Navigate to="/admin-auth"/>}/>
                     <Route path="/admin-auth" element={<AdminAuthPage/>}/>
-                    <Route path="/seller/*" element={RequireAuth() ? <PanelSellerPage/> : <Navigate to="/login"/>}/>
+                    <Route path="/seller-auth" element={<SellerAuthPage/>}/>
+                    <Route
+                        path="/seller/*"
+                        element={RequireAuth() && RequireSellerRole() ? <PanelSellerPage/> :
+                            <Navigate to="/seller-auth"/>}
+                    />
                     <Route path="/payment" element={<PaymentPage/>}/>
                 </Routes>
             </main>

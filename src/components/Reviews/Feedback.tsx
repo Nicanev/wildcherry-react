@@ -68,6 +68,24 @@ const Feedback: React.FC<{ productId: string }> = ({productId}) => {
         fetchFeedbackItems()
     };
 
+    const onDeleteFeedback = async (feedbackId: number) => {
+        const token = localStorage.getItem('token');
+        const user = parseJwt(token);
+        if (user.id === feedbackItems.find((item: any) => item.id === feedbackId)?.user.id) {
+            try {
+                await axios.delete(`${config.apiUrl}/review/${feedbackId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                fetchFeedbackItems();
+            } catch (error) {
+                console.error('Failed to delete feedback:', error);
+            }
+        }
+    };
+
+
     return (
         <div className="feedback">
             <h2>Отправить отзыв</h2>
@@ -79,7 +97,7 @@ const Feedback: React.FC<{ productId: string }> = ({productId}) => {
 
             {feedbackItems.length > 0 && (
                 <>
-                    <FeedbackList feedbackItems={feedbackItems}/>
+                    <FeedbackList feedbackItems={feedbackItems} onDeleteFeedback={onDeleteFeedback}/>
                     <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
                 </>
             )}

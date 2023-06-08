@@ -2,7 +2,7 @@ import React from 'react';
 import "./AdminSidebar.scss"
 
 interface AdminSidebarProps {
-    // Пропсы, если необходимо
+
 }
 
 const AdminSidebar: React.FC<AdminSidebarProps> = () => {
@@ -19,10 +19,10 @@ const AdminSidebar: React.FC<AdminSidebarProps> = () => {
                     <a href="/admin/products">Продукты</a>
                 </li>
                 <li>
-                    <a href="/admin/category">Категории</a>
+                    <a href="/admin/categories">Категории</a>
                 </li>
                 <li>
-                    <a href="/admin/subcategory">Подкатегории</a>
+                    <a href="/admin/subcategories">Подкатегории</a>
                 </li>
             </ul>
         </div>

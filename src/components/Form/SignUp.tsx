@@ -1,11 +1,10 @@
 import { Form } from "./Form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Form.scss";
 import axios from "axios";
 import config from "../../config";
 
 export function SignUp() {
-	let navigate = useNavigate();
 	const handleRegister = (email: string, password: string) => {
 		axios.post(`${config.apiUrl}/auth/registration/user`, {
             email: email,

@@ -75,7 +75,21 @@ const AdminUsers: React.FC = () => {
                         <td>{user.id}</td>
                         <td>{user.profile.name}</td>
                         <td>{user.email}</td>
-                        <td>{user.roles[user.roles.length - 1].value}</td>
+                        <td>
+                            {(() => {
+                                const role = user.roles.find((role:any) => role.value === 'ADMIN');
+                                if (role) {
+                                    return 'Админ';
+                                }
+
+                                const sellerRole = user.roles.find((role:any) => role.value === 'SELLER');
+                                if (sellerRole) {
+                                    return 'Продавец';
+                                }
+
+                                return 'Пользователь';
+                            })()}
+                        </td>
                         <td>
                             <Link to={"/admin/user/" + user.id}>
                                 <button>Изменить</button>

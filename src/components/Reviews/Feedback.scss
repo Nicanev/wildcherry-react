@@ -71,6 +71,14 @@
 }
 
 .feedback-list {
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      color: #de3163;
+    }
+  }
   h2 {
     margin: 2rem 0;
     font-weight: 600;

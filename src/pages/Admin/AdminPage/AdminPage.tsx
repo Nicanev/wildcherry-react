@@ -12,6 +12,8 @@ import AdminCategory from "../../../components/Entity/Category/AdminCategory";
 import AdminSubcategory from "../../../components/Entity/Subcategory/AdminSubcategory";
 import CreateProduct from "../../../components/Entity/Products/CreateProduct";
 import EditProduct from "../../../components/Entity/Products/EditProduct";
+import CreateCategory from "../../../components/Entity/Category/CreateCategory";
+import CreateSubcategory from "../../../components/Entity/Subcategory/CreateSubcategory";
 
 export function AdminPage() {
 
@@ -26,19 +28,22 @@ export function AdminPage() {
             return <AdminUsers/>;
         } else if (location.pathname === '/admin/products') {
             return <AdminProducts/>;
-        } else if (location.pathname === '/admin/category') {
+        } else if (location.pathname === '/admin/categories') {
             return <AdminCategory/>;
-        } else if (location.pathname === '/admin/subcategory') {
+        } else if (location.pathname === '/admin/subcategories') {
             return <AdminSubcategory/>;
         } else if (location.pathname === '/admin/user') {
             return <CreateUser/>
-            } else if (location.pathname === '/admin/product') {
+        } else if (location.pathname === '/admin/product') {
             return <CreateProduct/>
+        } else if (location.pathname === '/admin/category') {
+            return <CreateCategory/>
+        } else if (location.pathname === '/admin/subcategory') {
+            return <CreateSubcategory/>
         } else if (matchUserRoute) {
             const userId = Number(matchUserRoute[1]);
             return <EditUser userId={userId}/>;
-        }
-        else if (matchProductRoute) {
+        } else if (matchProductRoute) {
             const productId = Number(matchProductRoute[1]);
             return <EditProduct productId={productId}/>;
         }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "../Table.scss"
 import axios from "axios";
 import config from "../../../config";
+import {Link} from "react-router-dom";
 
 interface SubCategory {
     id: number;
@@ -40,7 +41,7 @@ const AdminSubcategory: React.FC = () => {
             });
             setSubCategory((prevProducts) => prevProducts.filter((product) => product.id !==categoryId));
         } catch (error) {
-            console.error('Failed to delete user:', error);
+            console.error('Failed to delete subcategory:', error);
 
         }
     };
@@ -48,8 +49,10 @@ const AdminSubcategory: React.FC = () => {
 
     return (
         <div className="admin-products admin-table">
-            <h2>Категории</h2>
-            <button className="admin-table__addBtn">Добавить категорию</button>
+            <h2>Подкатегории</h2>
+            <Link to="/admin/subcategory">
+                <button className="admin-table__addBtn">Добавить подкатегорию</button>
+            </Link>
             <table>
                 <thead>
                 <tr>
