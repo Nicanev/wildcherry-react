@@ -44,7 +44,7 @@ const FeedbackList: React.FC<FeedbackListProps> = ({
 							<span>Дата: {new Date(item.createdAt).toLocaleString()}</span>
 						</div>
 						{user &&
-							item.user.id === user.id && ( // Добавили проверку на user
+							item.user.id === user.id && (
 								<button onClick={() => handleDeleteFeedback(item.id)}>
 									Удалить
 								</button>

@@ -198,11 +198,11 @@ export function ProductDetail({product, productImages}: ProductProps) {
                 </div>
                 <div className="product__description">
                     <div className="product__text">
-                        <h1>Описание</h1>
+                        <h2>Описание</h2>
                         <p>{product?.description}</p>
                     </div>
                     <div className="product__additional">
-                        <h1>Характеристики</h1>
+                        <h2>Характеристики</h2>
                         <div className="product__info">
                             {specification && (
                                 <ul className="product__categories">

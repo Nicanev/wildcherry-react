@@ -59,7 +59,7 @@ const MobileMenu = () => {
                                 <a href="/catalog">Каталог</a>
                             </li>
                             <li>
-                                <a>О нас</a>
+                                <a href="/about">О нас</a>
                             </li>
                         </ul>
                     </div>

@@ -24,7 +24,6 @@ const refreshToken = () => {
       })
       .catch((error) => {
         console.log(error.message);
-        localStorage.clear()
       });
   }
 };

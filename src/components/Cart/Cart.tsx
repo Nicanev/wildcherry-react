@@ -5,6 +5,7 @@ import config from "../../config";
 import {useEffect, useState} from "react";
 import {Loader} from "../UI/Loader/Loader";
 import {Link} from "react-router-dom";
+import {GuestCart} from "./GuestCart";
 
 export function Cart() {
   const [cartData, setCartData] = useState<any>([]);
@@ -82,7 +83,7 @@ export function Cart() {
         return item;
       });
       setCartData(updatedCartData);
-      calculateCost(updatedCartData); // Update the cost
+      calculateCost(updatedCartData);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -165,6 +166,10 @@ export function Cart() {
   useEffect(() => {
     fetchCart();
   }, []);
+
+  if (!localStorage.getItem("token")) {
+    return <GuestCart />;
+  }
 
   return (
     <>

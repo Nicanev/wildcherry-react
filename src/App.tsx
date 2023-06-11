@@ -21,6 +21,8 @@ import refreshToken from "./tokenUtils";
 import {PaymentPage} from "./pages/Payment/PaymentPage";
 import parseJwt from "./jwtUtils";
 import {SellerAuthPage} from "./pages/Seller/AuthPage";
+import {Cart} from "./components/Cart/Cart";
+import {AboutPage} from "./pages/AboutPage";
 
 
 function RequireAuth(): boolean {
@@ -51,8 +53,6 @@ function App() {
     useEffect(() => {
         if (token) {
             refreshToken()
-        } else {
-            localStorage.clear();
         }
     }, [])
     return (
@@ -63,20 +63,22 @@ function App() {
             <main className="main">
                 <Routes>
                     <Route path="/" element={<MainPage/>}/>
+                    <Route path="/about" element={<AboutPage/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/profile" element={<ProfilePage/>}/>
                     <Route path="/product/:id" element={<ProductDetailPage/>}/>
                     <Route path="/search/:search" element={<SearchPage/>}/>
-                    {/* Защищенные роуты */}
+
+
                     <Route path="/favourite" element={RequireAuth() ? <FavouritePage/> : <Navigate to="/login"/>}/>
                     <Route path="/delivery" element={RequireAuth() ? <DeliveryPage/> : <Navigate to="/login"/>}/>
-                    <Route path="/cart" element={RequireAuth() ? <CartPage/> : <Navigate to="/login"/>}/>
+                    <Route path="/cart" element={<Cart/>}/>
 
                     <Route path="/catalog" element={<CatalogPage/>}/>
                     <Route path="/catalog/:category" element={<CatalogPage/>}/>
 
-                    {/* Защищенный роут */}
+
                     <Route path="/admin/*"
                            element={RequireAuth() && RequireAdminRole() ? <AdminPage/> : <Navigate to="/admin-auth"/>}/>
                     <Route path="/admin-auth" element={<AdminAuthPage/>}/>
