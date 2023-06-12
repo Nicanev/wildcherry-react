@@ -5,8 +5,9 @@ import axios from "axios";
 import config from "../../config";
 import parseJwt from "../../jwtUtils";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Feedback from "../Reviews/Feedback";
+import {CartContext} from "../../Context/CartContext";
 
 interface ProductProps {
     product: any;
@@ -19,6 +20,8 @@ export function ProductDetail({product, productImages}: ProductProps) {
     const [count, setCount] = useState<any>(1);
     const [specification, setSpecification] = useState<any>({});
     const [favourite, setFavourite] = useState<any>([]);
+    const { fetchCart } = useContext(CartContext);
+
 
     useEffect(() => {
         fetchFavourite();
@@ -134,7 +137,7 @@ export function ProductDetail({product, productImages}: ProductProps) {
                 }
             );
             console.log(response.data);
-            console.log(count);
+            fetchCart();
             navigate("/cart");
         } catch (error) {
             console.error(error);

@@ -4,7 +4,8 @@ import {Rating} from "../Reviews/Rating";
 import parseJwt from "../../jwtUtils";
 import axios from "axios";
 import config from "../../config";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {CartContext} from "../../Context/CartContext";
 
 interface ProductsProps {
     products: any;
@@ -12,17 +13,15 @@ interface ProductsProps {
 
 export function ProductsList({products}: ProductsProps) {
     const [addedToCart, setAddedToCart] = useState<string[]>([]);
-
+    const { fetchCart } = useContext(CartContext);
     const addToCart = async (product: any) => {
         const token = localStorage.getItem("token");
         if (!token) {
             const savedCartData = JSON.parse(localStorage.getItem("guestCart") || "[]");
             const existingProductIndex = savedCartData.findIndex((item: any) => item.id === product.id);
             if (existingProductIndex !== -1) {
-                // If the product already exists in the local cart, increase its count
                  savedCartData[existingProductIndex].CartProducts.count++;
             } else {
-                // If the product doesn't exist in the local cart, add it
                 savedCartData.push({
                     product: {
                         ...product,
@@ -51,6 +50,7 @@ export function ProductsList({products}: ProductsProps) {
                     }
                 );
                 console.log(response.data);
+                fetchCart();
                 setAddedToCart((prevAddedToCart) => [...prevAddedToCart, product.id]);
             } catch (error) {
                 console.error(error);
@@ -67,7 +67,7 @@ export function ProductsList({products}: ProductsProps) {
                     return (
                         <li key={product.id} className="product__card card">
                             <div className="card__img">
-                                <img src={product.images[0].url} alt="Product"/>
+                                <img src={product.images[product.images.length - 1].url} alt="Product"/>
                                 {product.discounts && product.discounts.length > 0 ? (
                                     <div className="card__discount">
                                         -{product.discounts[0].value}%

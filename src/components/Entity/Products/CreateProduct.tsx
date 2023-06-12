@@ -36,7 +36,7 @@ const CreateProduct: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [product, setProduct] = useState<Product>({
         name: '',
-        sub_category: 1,
+        sub_category: 0,
         description: '',
         price: 0,
         owner: userInfo.id,
@@ -236,7 +236,7 @@ const CreateProduct: React.FC = () => {
                 </div>
                 <div className="form-item">
                     <label>Subcategory:</label>
-                    <select name="subcategory" value={product.sub_category} onChange={handleChange}>
+                    <select name="sub_category"  value={product.sub_category} onChange={handleChange}>
                         {subCategory.map((subcategory) => (
                             <option key={subcategory.id} value={subcategory.id}>{subcategory.name}</option>
                         ))}

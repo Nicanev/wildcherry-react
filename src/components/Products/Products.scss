@@ -13,12 +13,14 @@
     stroke: #de3163;
   }
 }
-
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 .card {
   width: 29rem;
-  height: 55.7rem;
-  padding: 2rem 2rem 0 2rem;
-
+  padding: 2rem 2rem 2rem 2rem;
+  border-radius: 0.6rem;
+  transition: box-shadow 0.3s ease;
   &__title {
     margin-top: 0.5rem;
     font-size: 1.4rem;
@@ -62,7 +64,8 @@
 
     img {
       width: 25.2rem;
-      height: 33.6rem;
+      height: 25.2rem;
+      max-height: 33.6rem;
       object-fit: contain;
     }
   }

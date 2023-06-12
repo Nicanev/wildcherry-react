@@ -23,11 +23,12 @@
   &__categories {
     display: flex;
     flex-direction: column;
+    margin: 1rem 0;
   }
 
   &__category {
     display: flex;
-    padding: 2rem 0;
+    padding: 0.5rem 0;
     gap: 0.5rem;
 
     input[type="checkbox"] {

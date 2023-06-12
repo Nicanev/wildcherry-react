@@ -2,16 +2,19 @@ import "./Cart.scss";
 import parseJwt from "../../jwtUtils";
 import axios from "axios";
 import config from "../../config";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Loader} from "../UI/Loader/Loader";
 import {Link} from "react-router-dom";
 import {GuestCart} from "./GuestCart";
+import {CartContext} from "../../Context/CartContext";
 
 export function Cart() {
   const [cartData, setCartData] = useState<any>([]);
   const [cost, setCost] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
+  const { setCartCount } = useContext(CartContext);
+
 
   const incrementHandler = async (productId: any) => {
     const token = localStorage.getItem("token");
@@ -43,7 +46,7 @@ export function Cart() {
         return item;
       });
       setCartData(updatedCartData);
-      calculateCost(updatedCartData); // Update the cost
+      calculateCost(updatedCartData);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -84,7 +87,7 @@ export function Cart() {
       });
       setCartData(updatedCartData);
       calculateCost(updatedCartData);
-      console.log(response.data);
+      console.log(response.data.products);
     } catch (error) {
       console.error(error);
     }
@@ -143,6 +146,7 @@ export function Cart() {
                 return prevProduct;
               })
             );
+            setCartCount(response.data.length)
           })
           .catch((error) => {
             console.log(error.message);
@@ -221,7 +225,7 @@ export function Cart() {
                         <span>Цена:</span>{" "}
                         {(
                           item.total_price * item.CartProducts.count
-                        ).toLocaleString()}
+                        ).toLocaleString()} ₽
                       </div>
                       <div
                         className="cart__delete"
@@ -240,7 +244,7 @@ export function Cart() {
                     <Link to="/payment">
                       <button className="cart__buy">Оплатить</button>
                     </Link>
-                    <span>Сумма: {cost.toLocaleString()}</span>
+                    <span>Сумма: {cost.toLocaleString()} ₽</span>
                   </li>
                 )}
               </ul>

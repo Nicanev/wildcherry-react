@@ -24,7 +24,7 @@
     text-align: start;
     font-size: 2rem;
     font-weight: 600;
-    width: 8.5rem;
+    width: 10rem;
     span {
       font-weight: normal;
       color: gray;
@@ -93,6 +93,10 @@
 .cart__count-input {
   display: flex;
   align-items: center;
+  span {
+    width: 4rem;
+    text-align: center;
+  }
 }
 
 .cart__count-input button {

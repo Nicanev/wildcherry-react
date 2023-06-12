@@ -22,7 +22,7 @@ const PriceFilter: React.FC<PriceFilterProps> = ({selectedPrice, onChange}) => {
     };
 
     useEffect(() => {
-        setMaxPrice(35000);
+        setMaxPrice(100000);
     }, []);
 
     return (
