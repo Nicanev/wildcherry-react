@@ -11,6 +11,24 @@
     gap: 2rem;
   }
 
+  &__spec {
+    li {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1.6rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    span {
+      display: flex;
+      min-width: 6rem;
+    }
+    .product__spec-title {
+      width: 40rem;
+      border-bottom: 0.1rem dotted #ddd;
+    }
+  }
+
   &__description {
     display: flex;
     flex-wrap: wrap;

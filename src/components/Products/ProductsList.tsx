@@ -13,14 +13,14 @@ interface ProductsProps {
 
 export function ProductsList({products}: ProductsProps) {
     const [addedToCart, setAddedToCart] = useState<string[]>([]);
-    const { fetchCart } = useContext(CartContext);
+    const {fetchCart} = useContext(CartContext);
     const addToCart = async (product: any) => {
         const token = localStorage.getItem("token");
         if (!token) {
             const savedCartData = JSON.parse(localStorage.getItem("guestCart") || "[]");
             const existingProductIndex = savedCartData.findIndex((item: any) => item.id === product.id);
             if (existingProductIndex !== -1) {
-                 savedCartData[existingProductIndex].CartProducts.count++;
+                savedCartData[existingProductIndex].CartProducts.count++;
             } else {
                 savedCartData.push({
                     product: {
@@ -66,25 +66,29 @@ export function ProductsList({products}: ProductsProps) {
                     const isAddedToCart = addedToCart.includes(product.id);
                     return (
                         <li key={product.id} className="product__card card">
-                            <div className="card__img">
-                                <img src={product.images[product.images.length - 1].url} alt="Product"/>
-                                {product.discounts && product.discounts.length > 0 ? (
-                                    <div className="card__discount">
-                                        -{product.discounts[0].value}%
-                                    </div>
-                                ) : null}
-                            </div>
-                            <div className="card__body">
-                                <div className="card__price">
-                                    <div className="card__current-price">
-                                        {Math.round(product.total_price).toLocaleString()} ₽
-                                    </div>
-                                    {product.price === product.total_price ? null : (
-                                        <div className="card__old-price">
-                                            {product.price.toLocaleString()} ₽
+                            <Link to={`/product/${product.id}`}>
+                                <div className="card__img">
+                                    <img src={product.images[product.images.length - 1].url} alt="Product"/>
+                                    {product.discounts && product.discounts.length > 0 ? (
+                                        <div className="card__discount">
+                                            -{product.discounts[0].value}%
                                         </div>
-                                    )}
+                                    ) : null}
                                 </div>
+                            </Link>
+                            <div className="card__body">
+                                <Link to={`/product/${product.id}`}>
+                                    <div className="card__price">
+                                        <div className="card__current-price">
+                                            {Math.round(product.total_price).toLocaleString()} ₽
+                                        </div>
+                                        {product.price === product.total_price ? null : (
+                                            <div className="card__old-price">
+                                                {product.price.toLocaleString()} ₽
+                                            </div>
+                                        )}
+                                    </div>
+                                </Link>
                                 <Link to={`/product/${product.id}`}>
                                     <div className="card__title">{product.name}</div>
                                 </Link>

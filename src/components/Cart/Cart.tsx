@@ -13,7 +13,7 @@ export function Cart() {
   const [cost, setCost] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
-  const { setCartCount } = useContext(CartContext);
+  const {  fetchCart } = useContext(CartContext);
 
 
   const incrementHandler = async (productId: any) => {
@@ -107,14 +107,14 @@ export function Cart() {
           count: count,
         },
       });
-      fetchCart();
+      fetchItemCart();
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const fetchCart = async () => {
+  const fetchItemCart = async () => {
     setLoading(true);
     setError(null);
     const token = localStorage.getItem("token");
@@ -146,7 +146,7 @@ export function Cart() {
                 return prevProduct;
               })
             );
-            setCartCount(response.data.length)
+            fetchCart()
           })
           .catch((error) => {
             console.log(error.message);
@@ -168,7 +168,7 @@ export function Cart() {
   };
 
   useEffect(() => {
-    fetchCart();
+    fetchItemCart();
   }, []);
 
   if (!localStorage.getItem("token")) {

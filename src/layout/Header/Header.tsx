@@ -20,11 +20,10 @@ import {CartContext, CartContextType} from "../../Context/CartContext";
 
 export const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const { cartCount, setCartCount } = useContext<CartContextType>(CartContext);
-
+    const {cartCount, fetchCart} = useContext<CartContextType>(CartContext);
 
     useEffect(() => {
-        fetchCart(setCartCount);
+        fetchCart()
     }, []);
 
 
@@ -119,33 +118,33 @@ interface CartBadgeProps {
 }
 
 const fetchCart = async (setCartCount: React.Dispatch<React.SetStateAction<number>>) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    const user = parseJwt(localStorage.getItem("token"));
-    try {
-      const response = await axios.get(`${config.apiUrl}/cart/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const products = response.data.products;
-      setCartCount(products.length);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
+    const token = localStorage.getItem("token");
+    if (token) {
+        const user = parseJwt(localStorage.getItem("token"));
+        try {
+            const response = await axios.get(`${config.apiUrl}/cart/${user.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const products = response.data.products;
+            setCartCount(products.length);
+        } catch (error) {
+            console.error("Error fetching cart:", error);
+        }
+    } else {
+        const guestCart = localStorage.getItem("guestCart");
+        if (guestCart) {
+            const parsedGuestCart = JSON.parse(guestCart);
+            setCartCount(parsedGuestCart.length);
+        }
     }
-  } else {
-    const guestCart = localStorage.getItem("guestCart");
-    if (guestCart) {
-      const parsedGuestCart = JSON.parse(guestCart);
-      setCartCount(parsedGuestCart.length);
-    }
-  }
 };
 
-const CartBadge: React.FC<CartBadgeProps> = ({ count }) => {
-  return (
-    <div className={`cart-badge ${count === 0 ? 'hidden' : ''}`}>
-      {count > 0 && <div className="cart-badge__count">{count}</div>}
-    </div>
-  );
+const CartBadge: React.FC<CartBadgeProps> = ({count}) => {
+    return (
+        <div className={`cart-badge ${count === 0 ? 'hidden' : ''}`}>
+            {count > 0 && <div className="cart-badge__count">{count}</div>}
+        </div>
+    );
 };

@@ -208,10 +208,10 @@ export function ProductDetail({product, productImages}: ProductProps) {
                         <h2>Характеристики</h2>
                         <div className="product__info">
                             {specification && (
-                                <ul className="product__categories">
-                                    <li>Ширина: {specification.width}</li>
-                                    <li>Высота: {specification.height}</li>
-                                    <li>Ширина: {specification.width}</li>
+                                <ul className="product__spec">
+                                    <li><div className="product__spec-title">Ширина</div> <span>{specification.width} мм</span></li>
+                                    <li><div className="product__spec-title">Высота</div> <span>{specification.height} мм</span></li>
+                                    <li><div className="product__spec-title">Длина</div>  <span>{specification.lenght} мм</span></li>
                                 </ul>
                             )}
                         </div>

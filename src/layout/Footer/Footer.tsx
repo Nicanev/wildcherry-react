@@ -12,7 +12,9 @@ export const Footer = () => {
                     <div className="footer__copyright">© 2023 WildCherry</div>
                     <ul className="footer__menu">
                         <li>Помощь</li>
-                        <li>Покупателям</li>
+                        <Link to="/about">
+                            <li>О нас</li>
+                        </Link>
                         <Link to="/seller">
                             <li>Продавцам</li>
                         </Link>

@@ -27,6 +27,19 @@ export const ModalCatalog = () => {
                             <ul className={`modalCatalog__subcategories ${selectedCategory}`}>
                                 {selectedCategory === 'electronic' && (
                                     <>
+                                        <li><b> Смартфоны и гаджеты</b></li>
+                                        <Link to={'/catalog/Смартфоны'}>
+                                            <li>Смартфоны</li>
+                                        </Link>
+                                        <li>Мониторы</li>
+                                        <li>ОЗУ</li>
+                                        <li>Клавиатуры</li>
+                                    </>
+                                )}
+                            </ul>
+                            <ul className={`modalCatalog__subcategories ${selectedCategory}`}>
+                                {selectedCategory === 'electronic' && (
+                                    <>
                                         <li><b> Компьютерные комлектующие</b></li>
                                         <Link to={'/catalog/Видеокарты'}>
                                             <li>Видеокарты</li>
@@ -38,8 +51,8 @@ export const ModalCatalog = () => {
                                 )}
                                 {selectedCategory === 'clothes' && (
                                     <>
-                                        <li>Одежда</li>
-                                        <li>Обувь</li>
+                                        <li><b>Одежда</b></li>
+                                        <li>Плащи</li>
                                         <li>Куртки</li>
                                         <li>Штаны</li>
                                         <li>Рубашки</li>
@@ -47,7 +60,7 @@ export const ModalCatalog = () => {
                                 )}
                                 {selectedCategory === 'shoes' && (
                                     <>
-                                        <li>Кроссовки</li>
+                                        <li><b>Обувь</b></li>
                                         <li>Ботинки</li>
                                         <li>Сандалии</li>
                                         <li>Туфли</li>
