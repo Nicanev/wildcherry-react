@@ -1,156 +1,155 @@
 .product {
-  margin-top: 4rem;
+	margin-top: 4rem;
 
-  &__img {
-    width: 50rem;
-  }
+	&__img {
+		width: 50rem;
+	}
 
-  &__main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
+	&__main {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+	}
 
-  &__spec {
-    li {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 1.6rem;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    span {
-      display: flex;
-      min-width: 6rem;
-    }
-    .product__spec-title {
-      width: 40rem;
-      border-bottom: 0.1rem dotted #ddd;
-    }
-  }
+	&__spec {
+		li {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 1.6rem;
+			align-items: center;
+			margin-bottom: 1rem;
+		}
+		span {
+			display: flex;
+			min-width: 6rem;
+		}
+		.product__spec-title {
+			width: 40rem;
+			border-bottom: 0.1rem dotted #ddd;
+		}
+	}
 
-  &__description {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    width: 60rem;
-    margin-top: 2rem;
+	&__description {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		width: 60rem;
+		margin-top: 2rem;
 
-    h2 {
-      font-weight: 600;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  }
+		h2 {
+			font-weight: 600;
+			font-size: 2rem;
+			margin-bottom: 1rem;
+		}
+	}
 
-  &__delivery {
-    margin-top: 1rem;
+	&__delivery {
+		margin-top: 1rem;
 
-    span {
-      font-weight: 600;
-    }
-  }
+		span {
+			font-weight: 600;
+		}
+	}
 
-  &__buttons {
-    margin-top: 4rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+	&__buttons {
+		margin-top: 4rem;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 
-    svg {
-      width: 2.5rem;
-      height: 2.5rem;
-    }
+		svg {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
 
-    svg:hover {
-      path {
-        fill: #de3163;
-      }
-    }
+		svg:hover {
+			path {
+				fill: #de3163;
+			}
+		}
 
-    button:first-child {
-      color: white;
-      background-color: #de3163;
-      border-radius: 1rem;
-      font-weight: bold;
-      padding: 1.6rem 2.6rem;
-      font-size: 2rem;
-    }
+		button:first-child {
+			color: white;
+			background-color: #de3163;
+			border-radius: 1rem;
+			font-weight: bold;
+			padding: 1.6rem 2.6rem;
+			font-size: 2rem;
+		}
 
-    input {
-      width: 5rem;
-      padding: 1.6rem 0;
-      text-align: center;
-      border-radius: 1rem;
-      border: 0.2rem solid #de3163;
-      font-weight: bold;
-    }
+		input {
+			width: 5rem;
+			padding: 1.6rem 0;
+			text-align: center;
+			border-radius: 1rem;
+			border: 0.2rem solid #de3163;
+			font-weight: bold;
+		}
+	}
 
+	&__price {
+		margin-top: 0.5rem;
+		font-weight: bold;
+		font-size: 3rem;
+	}
 
-  }
+	&__oldprice {
+		font-size: 2rem;
+		color: gray;
+		text-decoration: line-through;
+	}
 
-  &__price {
-    margin-top: 0.5rem;
-    font-weight: bold;
-    font-size: 3rem;
-  }
+	&__head {
+		padding-bottom: 1rem;
+		border-bottom: 0.1rem solid rgba(128, 128, 128, 0.24);
+		margin-bottom: 2rem;
+	}
 
-  &__oldprice {
-    font-size: 2rem;
-    color: gray;
-    text-decoration: line-through;
-  }
+	&__info {
+		display: flex;
 
-  &__head {
-    padding-bottom: 1rem;
-    border-bottom: 0.1rem solid rgba(128, 128, 128, 0.24);
-    margin-bottom: 2rem;
-  }
+		width: 35rem;
+		justify-content: space-between;
+	}
 
-  &__info {
-    display: flex;
+	&__title {
+		font-size: 2.8rem;
+		font-weight: bold;
+		line-height: 4.8rem;
+	}
 
-    width: 35rem;
-    justify-content: space-between;
-  }
+	&__rate {
+		margin-top: 1.5rem;
+		display: flex;
+		align-items: center;
 
-  &__title {
-    font-size: 2.8rem;
-    font-weight: bold;
-  }
+		span {
+			margin-left: 0.5rem;
+			font-size: 1.4rem;
+		}
 
-  &__rate {
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-left: 0.5rem;
-      font-size: 1.4rem;
-    }
-
-    svg {
-      width: 1.4rem;
-      height: 1.4rem;
-    }
-  }
+		svg {
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+	}
 }
 
 .liked {
-  color: #de3163 !important;
-  border: 0.2rem solid #de3163 !important;
+	color: #de3163 !important;
+	border: 0.2rem solid #de3163 !important;
 }
 
 .favourite-btn {
-  color: gray;
-  border: 0.2rem solid gray;
-  border-radius: 1rem;
-  font-weight: bold;
-  padding: 1.4rem 2.4rem;
-  font-size: 2rem;
+	color: gray;
+	border: 0.2rem solid gray;
+	border-radius: 1rem;
+	font-weight: bold;
+	padding: 1.4rem 2.4rem;
+	font-size: 2rem;
 }
 .swiper-slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
